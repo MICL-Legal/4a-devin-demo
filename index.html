@@ -70,6 +70,8 @@
   .imgbox{background:var(--paste);border-radius:12px;overflow:hidden;margin:.5rem 0 1rem;border:2px solid var(--accent)}
   .imgbox .top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.08)}
   .imgbox .top .t{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#b9a986;font-weight:700}
+  .imgbox .top .btns{display:flex;gap:.5rem}
+  .imgbox .top .btns .copy{font-family:inherit;font-size:.8rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:7px;padding:.35rem .8rem;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
   .imgbox img{display:block;width:100%;height:auto}
 
   .ok{display:flex;gap:.5rem;align-items:flex-start;background:var(--good-bg);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin:.2rem 0 1.2rem}
@@ -176,9 +178,9 @@
         <p class="sub">Finance Hub System · 用一張畫面截圖當規格書</p>
         <div class="why">不是每次都要打字描述介面長什麼樣——<b>你部門已經在用的畫面，本身就是最準的規格書</b>。把畫面截圖複製起來，貼給 Claude Code 當作第一次輸入，它能直接照圖把欄位、分區、排版都抓出來。</div>
         <div class="note"><span class="c">📁 資料夾</span><span>這個例子的資料夾是 <code>003-Report</code>——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
-        <p class="do">① 先複製這張圖（點右上角按鈕，或直接在圖片上按右鍵→複製圖片）：</p>
+        <p class="do">① 先取得這張圖——「複製圖片」可以直接貼進 Claude Code；如果複製沒反應，改按「下載圖片」存成檔案，再拖進 Claude Code：</p>
         <div class="imgbox">
-          <div class="top"><span class="t">參考畫面 · 記帳表單</span><button class="copy" id="imgCopyBtn">複製圖片</button></div>
+          <div class="top"><span class="t">參考畫面 · 記帳表單</span><span class="btns"><button class="copy" id="imgCopyBtn">複製圖片</button><a class="copy" href="assets/003-finance-hub-reference.png" download="finance-hub-reference.png">下載圖片</a></span></div>
           <img src="assets/003-finance-hub-reference.png" alt="Finance Hub System 記帳表單參考畫面" id="refImg">
         </div>
         <p class="do">② 打開 Claude Code，<b>先貼上這張圖（Ctrl+V）</b>，再把這句話一起送出：</p>
