@@ -46,17 +46,40 @@
   .why{background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.95rem;color:var(--soft);margin-bottom:1.1rem}
   .why b{color:var(--ink)}
   .do{font-weight:700;margin:.2rem 0 .5rem}
+  .hand{font-weight:400;margin:.15rem 0 .5rem;color:var(--ink)}
+
+  .stephd{display:flex;align-items:baseline;flex-wrap:wrap;gap:.55rem;margin:1.7rem 0 .7rem;padding-top:1rem;border-top:1px solid var(--line);font-weight:800;font-size:1.08rem;color:var(--ink)}
+  .stephd:first-of-type{border-top:0;padding-top:0}
+  .stephd .n{flex:0 0 auto;background:var(--accent);color:#fff;border-radius:8px;font-size:.7rem;letter-spacing:.1em;padding:.22rem .6rem;font-weight:800;position:relative;top:-2px}
+  .stephd .sfx{font-weight:400;font-size:.84rem;color:var(--faint)}
+
   .cmd{background:var(--paste);border-radius:12px;overflow:hidden;margin:.5rem 0 1rem;border:2px solid var(--accent)}
   .cmd .top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.08)}
   .cmd .top .t{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#b9a986;font-weight:700}
   .cmd .copy{font-family:inherit;font-size:.8rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:7px;padding:.35rem .8rem;cursor:pointer;white-space:nowrap}
   .cmd pre{margin:0;padding:.85rem .9rem;font-family:var(--mono);font-size:.86rem;line-height:1.75;color:var(--paste-ink);white-space:pre-wrap;word-break:break-word}
+
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0 1rem}
+  .chip{font-family:var(--mono);font-size:.86rem;font-weight:700;background:var(--paste);color:var(--paste-ink);border:2px solid var(--accent);border-radius:9px;padding:.42rem .7rem;cursor:pointer;display:inline-flex;align-items:center;gap:.55rem;line-height:1.4}
+  .chip span{font-family:var(--sans);font-size:.7rem;font-weight:700;color:var(--accent2);letter-spacing:.04em;white-space:nowrap}
+  .chip:hover{background:var(--accent);color:#fff}
+  .chip:hover span{color:#fff}
+
+  .tree{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:.85rem .95rem;font-family:var(--mono);font-size:.82rem;line-height:2;color:var(--ink);white-space:pre;overflow-x:auto;margin:.5rem 0 1rem}
+
   .ok{display:flex;gap:.5rem;align-items:flex-start;background:var(--good-bg);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin:.2rem 0 1.2rem}
   .ok .c{color:var(--good);font-weight:800;white-space:nowrap}
   .note{display:flex;gap:.5rem;align-items:flex-start;background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.9rem;color:var(--soft);margin:.2rem 0 1.2rem}
   .note .c{color:var(--accent);font-weight:800;white-space:nowrap}
+  details.ex{margin:.2rem 0 1rem;background:var(--card2);border:1px solid var(--line);border-radius:10px}
+  details.ex summary{cursor:pointer;padding:.7rem .9rem;font-weight:700;font-size:.9rem;color:var(--accent);list-style:none}
+  details.ex summary::-webkit-details-marker{display:none}
+  details.ex summary::before{content:"＋ ";font-weight:800}
+  details.ex[open] summary::before{content:"− "}
+  details.ex .exb{padding:0 .9rem .9rem;font-size:.88rem;line-height:1.8;color:var(--soft)}
   .soonbox{background:var(--card2);border:2px dashed var(--line);border-radius:12px;padding:1.6rem 1rem;text-align:center;color:var(--faint);font-weight:700;margin:.6rem 0 1.2rem;line-height:1.9}
   .panel code{font-family:var(--mono);background:var(--card2);padding:.1rem .35rem;border-radius:4px;font-size:.85em;color:var(--accent)}
+  kbd{font-family:var(--sans);font-size:.85em;font-weight:800;background:var(--paper);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:.05rem .38rem;color:var(--ink)}
   .nav{display:flex;gap:.7rem;flex-wrap:wrap}
   button.next{font-family:inherit;font-size:1rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:11px;padding:.75rem 1.4rem;cursor:pointer}
   button.prev{font-family:inherit;font-size:.95rem;font-weight:600;background:transparent;color:var(--soft);border:1px solid var(--line);border-radius:11px;padding:.75rem 1.1rem;cursor:pointer}
@@ -103,16 +126,55 @@
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>https://github.com/harry0703/MoneyPrinterTurbo下載到
 電腦路徑C:\AI-Workspace\Claude\Project\002-MPT  網頁開啟</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>它自己把專案抓下來、裝好環境，最後<b>瀏覽器開出影片機的操作網頁</b>＝ 成功。</span></div>
+        <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>002-MPT</code> 是一個要先存在的資料夾——<b>在例子 3 的 Step 1 會一次建好四個</b>，建過就不用再建。</span></div>
         <div class="note"><span class="c">⏳ 要等</span><span>這支要下載的東西比較多，<b>跑幾分鐘是正常的</b>——畫面一直跳字就是還在做，不要關掉。</span></div>
       </section>
 
-      <section class="panel case" data-t="飲料店訂購網頁" data-d="能點餐、能記單、看得到賣幾杯">
+      <section class="panel case" data-t="飲料店訂購網頁" data-d="全員動手：建資料夾 → 進去 → 一句話">
         <div class="stepno">例子 3　·　共 5 個</div>
         <h2>飲料店訂購網頁</h2>
-        <p class="sub">現場 live demo（2-2）</p>
+        <p class="sub">現場 live demo（2-2）· 這一個全員親手做</p>
         <div class="why">一句話，當場長出一個<b>能點餐、能記單</b>的小系統：點品項 → 跳出視窗輸入名字 → 送出 → 看得到目前每個品項各賣了幾杯。<b>那張你看得懂的表，就是它的「資料庫」</b>——下週 Billy 場再教你把它搬進真正的資料庫。</div>
-        <p class="do">把整段複製，貼給 Claude Code：</p>
+
+        <div class="stephd"><span class="n">STEP 1</span>先把工作資料夾建好<span class="sfx">只做一次，後面每一場都用同一個</span></div>
+        <div class="note"><span class="c">為什麼</span><span>AI 要幫你動手，得先知道<b>去哪動手</b>。全班用同一個路徑，卡住的時候講師一眼就知道你的東西在哪；各建各的，講師要一台一台幫你找。</span></div>
+        <p class="hand">① 按鍵盤 <kbd>Win</kbd> + <kbd>R</kbd> —— 螢幕左下角會跳出一個小視窗（叫「執行」）。</p>
+        <p class="hand">② 把這個貼進去、按 <kbd>Enter</kbd> —— 檔案總管會<b>直接開在 C 槽</b>，不用自己找：</p>
+        <div class="cmd"><div class="top"><span class="t">貼進「執行」小視窗</span><button class="copy">複製</button></div><pre>C:\</pre></div>
+        <p class="hand">③ 在白色空白處按<b>滑鼠右鍵</b> → <b>新增</b> → <b>資料夾</b>，把名字改成 <code>AI-Workspace</code>。</p>
+        <p class="hand">④ 按兩下進去 <code>AI-Workspace</code>，同樣方式再建一個 <code>Claude</code>。</p>
+        <p class="hand">⑤ 按兩下進去 <code>Claude</code>，再建一個 <code>Project</code>。</p>
+        <p class="hand">⑥ 按兩下進去 <code>Project</code>，在裡面建<b>四個</b>資料夾。名字點一下就複製，不用自己打：</p>
+        <div class="chips">
+          <button class="chip" data-copy="001-Demo"><b>001-Demo</b><span>複製</span></button>
+          <button class="chip" data-copy="002-MPT"><b>002-MPT</b><span>複製</span></button>
+          <button class="chip" data-copy="003-notebooklm"><b>003-notebooklm</b><span>複製</span></button>
+          <button class="chip" data-copy="Credential"><b>Credential</b><span>複製</span></button>
+        </div>
+        <p class="hand">⑦ 建完長這樣：</p>
+        <div class="tree">C:\AI-Workspace\Claude\Project\
+  001-Demo\          ← 飲料店 Demo（這一堂要用）
+  002-MPT\           ← MoneyPrinterTurbo（例子 2）
+  003-notebooklm\    ← NotebookLM
+  Credential\        ← 金鑰</div>
+        <p class="hand">⑧ <b>確認你建對了</b>：再按一次 <kbd>Win</kbd> + <kbd>R</kbd>，貼上這一整行按 <kbd>Enter</kbd>：</p>
+        <div class="cmd"><div class="top"><span class="t">確認用 · 貼進「執行」小視窗</span><button class="copy">複製</button></div><pre>C:\AI-Workspace\Claude\Project</pre></div>
+        <div class="ok"><span class="c">✓ 這一步成功長這樣</span><span>視窗打開後<b>看得到那四個資料夾</b>＝ 建對了。<b>跳出「找不到」＝ 名字打錯或建錯層</b>，現在改比後面才發現輕鬆十倍。</span></div>
+        <details class="ex"><summary>按 Win + R 沒反應？（備援作法）</summary><div class="exb">有些公司電腦會把「執行」關掉。改走這條：<br>按 <kbd>Win</kbd> + <kbd>E</kbd> 打開<b>檔案總管</b> → 點左邊的「<b>本機</b>」（有些電腦寫「這台電腦」）→ 按兩下「<b>本機磁碟 (C:)</b>」→ 接著回到上面第 ③ 步繼續。</div></details>
+        <details class="ex"><summary>打資料夾名字最容易錯的三件事</summary><div class="exb"><b>① 中文輸入法沒關。</b>打出來的會是全形的 <code>００１－Ｄｅｍｏ</code>，看起來很像但電腦當成完全不同的字。<b>打名字前先按一下 <kbd>Shift</kbd> 切回英文。</b>（所以建議直接用上面的複製鈕。）<br><b>② 連字號打成底線或空白。</b>是 <code>001-Demo</code>（減號），不是 <code>001_Demo</code>、也不是 <code>001 Demo</code>。<br><b>③ 建錯層。</b>四個資料夾要在 <code>Project</code> <b>裡面</b>，不是跟 <code>Project</code> 並排。第 ⑧ 步的確認就是在抓這個。</div></details>
+
+        <div class="stephd"><span class="n">STEP 2</span>讓 Claude Code 到那個資料夾<span class="sfx">你在哪裡啟動它，它就只認得那裡</span></div>
+        <p class="hand">① 按 <kbd>Win</kbd> + <kbd>R</kbd>，輸入 <b>powershell</b>，按 <kbd>Enter</kbd>。</p>
+        <p class="hand">② 貼這一整行、按 <kbd>Enter</kbd> —— 告訴它「到飲料店這個資料夾工作」：</p>
+        <div class="cmd"><div class="top"><span class="t">貼進 PowerShell</span><button class="copy">複製整行</button></div><pre>cd C:\AI-Workspace\Claude\Project\001-Demo</pre></div>
+        <p class="hand">左邊那串字要變成 <code>PS C:\AI-Workspace\Claude\Project\001-Demo&gt;</code> 才對。</p>
+        <p class="hand">③ 啟動 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">貼進 PowerShell</span><button class="copy">複製</button></div><pre>claude</pre></div>
+        <div class="ok"><span class="c">✓ 這一步成功長這樣</span><span>進到 Claude Code 的<b>對話畫面</b>，可以打字了 ＝ 可以往下走。</span></div>
+
+        <div class="stephd"><span class="n">STEP 3</span>把整段複製，貼給 Claude Code</div>
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\001-DEMO 請幫我做一個飲料店,訂購網頁有幾個熱門的品項,直接購買彈跳視窗輸入名字，送出後可以看到訂單料表 目前個別品項購買數量多少,</pre></div>
+        <div class="note"><span class="c">⚠️ 大小寫</span><span>這句話裡寫的是 <code>001-DEMO</code>，你建的是 <code>001-Demo</code>——<b>Windows 不分大小寫，這是同一個資料夾</b>。不用改、也不用重建。</span></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>網頁能下單，而且下完單<b>看得到每個品項的累計數量</b>＝ 成功。</span></div>
         <div class="note"><span class="c">💡 換成你的</span><span>把「飲料店」換成<b>你部門真的在收的東西</b>（報修單、領料單、訂便當），句型完全一樣。</span></div>
       </section>
@@ -162,7 +224,7 @@
              '<span class="rd">'+p.getAttribute('data-d')+'</span></div></div>';
     }).join('');
     [].forEach.call(document.querySelectorAll('.rstep'),function(e){
-      e.onclick=function(){cur=+e.getAttribute('data-k');render();};
+      e.onclick=function(){cur=+e.getAttribute('data-k');render();window.scrollTo(0,0);};
     });
   }
 
@@ -191,22 +253,22 @@
     [].forEach.call(nav.querySelectorAll('button'),function(b){
       b.onclick=function(){
         if(b.getAttribute('data-go')==='next'){done[cur]=true;cur++;}else{cur--;}
-        render();
+        render();window.scrollTo(0,0);
       };
     });
     renderRail();
   }
 
-  function flash(btn,msg,ms){
-    var base=btn.getAttribute('data-base');
-    if(!base){base=btn.textContent;btn.setAttribute('data-base',base);}
-    btn.textContent=msg;
-    clearTimeout(btn._t);
-    btn._t=setTimeout(function(){btn.textContent=btn.getAttribute('data-base');},ms||1500);
+  function flash(el,msg,ms){
+    var base=el.getAttribute('data-base');
+    if(!base){base=el.textContent;el.setAttribute('data-base',base);}
+    el.textContent=msg;
+    clearTimeout(el._t);
+    el._t=setTimeout(function(){el.textContent=el.getAttribute('data-base');},ms||1500);
   }
-  function selectPre(pre){
+  function selectEl(el){
     try{
-      var r=document.createRange();r.selectNodeContents(pre);
+      var r=document.createRange();r.selectNodeContents(el);
       var s=window.getSelection();s.removeAllRanges();s.addRange(r);
     }catch(e){}
   }
@@ -222,26 +284,32 @@
     document.body.removeChild(ta);
     return ok;
   }
-  // \u8907\u88fd\u9215\uff1a\u771f\u7684\u8907\u88fd\u5230\u624d\u8aaa\u300c\u5df2\u8907\u88fd\u300d\u3002\u526a\u8cbc\u7c3f API \u88ab\u64cb\u6216\u5361\u4f4f\u6642\uff0c
-  // \u5148\u8a66\u820a\u7248 execCommand\uff1b\u518d\u4e0d\u884c\u5c31\u628a\u6574\u6bb5\u9078\u8d77\u4f86\uff0c\u8acb\u4f7f\u7528\u8005\u81ea\u5df1\u6309 Ctrl+C\u3002
+  // 真的複製到才說「已複製」。剪貼簿 API 被擋或卡住時先試舊版 execCommand，
+  // 再不行就把內容選起來，請使用者自己按 Ctrl+C。
+  function doCopy(labelEl,txt,selTarget){
+    var settled=false;
+    function won(){if(settled){return;}settled=true;flash(labelEl,'\u5df2\u8907\u88fd \u2713',1500);}
+    function lost(){if(settled){return;}settled=true;selectEl(selTarget);flash(labelEl,'\u5df2\u9078\u53d6 \u2192 \u6309 Ctrl+C',3000);}
+    function tryLegacy(){if(settled){return;}if(legacyCopy(txt)){won();}else{lost();}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(won,tryLegacy);
+      setTimeout(tryLegacy,900);
+    }else{
+      tryLegacy();
+    }
+  }
   [].forEach.call(document.querySelectorAll('.cmd .copy'),function(btn){
     btn.onclick=function(){
-      var box=btn.parentNode.parentNode;
-      var pre=box.querySelector('pre');
-      var txt=pre.textContent;
-      var settled=false;
-      function won(){if(settled){return;}settled=true;flash(btn,'\u5df2\u8907\u88fd \u2713',1500);}
-      function lost(){if(settled){return;}settled=true;selectPre(pre);flash(btn,'\u5df2\u9078\u53d6 \u2192 \u6309 Ctrl+C',3000);}
-      function tryLegacy(){if(settled){return;}if(legacyCopy(txt)){won();}else{lost();}}
-      if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(txt).then(won,tryLegacy);
-        setTimeout(tryLegacy,900);
-      }else{
-        tryLegacy();
-      }
+      var pre=btn.parentNode.parentNode.querySelector('pre');
+      doCopy(btn,pre.textContent,pre);
+    };
+  });
+  [].forEach.call(document.querySelectorAll('.chip'),function(chip){
+    chip.onclick=function(){
+      doCopy(chip.querySelector('span'),chip.getAttribute('data-copy'),chip.querySelector('b'));
     };
   });
 
-  $('again').onclick=function(){cur=N-1;render();};
+  $('again').onclick=function(){cur=N-1;render();window.scrollTo(0,0);};
   render();
 </script>
