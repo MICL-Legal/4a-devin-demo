@@ -197,14 +197,48 @@
     renderRail();
   }
 
+  function flash(btn,msg,ms){
+    var base=btn.getAttribute('data-base');
+    if(!base){base=btn.textContent;btn.setAttribute('data-base',base);}
+    btn.textContent=msg;
+    clearTimeout(btn._t);
+    btn._t=setTimeout(function(){btn.textContent=btn.getAttribute('data-base');},ms||1500);
+  }
+  function selectPre(pre){
+    try{
+      var r=document.createRange();r.selectNodeContents(pre);
+      var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+    }catch(e){}
+  }
+  function legacyCopy(txt){
+    var ta=document.createElement('textarea');
+    ta.value=txt;ta.setAttribute('readonly','');
+    ta.style.position='fixed';ta.style.top='0';ta.style.left='-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ta.setSelectionRange(0,txt.length);}catch(e){}
+    var ok=false;
+    try{ok=document.execCommand('copy');}catch(e){ok=false;}
+    document.body.removeChild(ta);
+    return ok;
+  }
+  // \u8907\u88fd\u9215\uff1a\u771f\u7684\u8907\u88fd\u5230\u624d\u8aaa\u300c\u5df2\u8907\u88fd\u300d\u3002\u526a\u8cbc\u7c3f API \u88ab\u64cb\u6216\u5361\u4f4f\u6642\uff0c
+  // \u5148\u8a66\u820a\u7248 execCommand\uff1b\u518d\u4e0d\u884c\u5c31\u628a\u6574\u6bb5\u9078\u8d77\u4f86\uff0c\u8acb\u4f7f\u7528\u8005\u81ea\u5df1\u6309 Ctrl+C\u3002
   [].forEach.call(document.querySelectorAll('.cmd .copy'),function(btn){
     btn.onclick=function(){
       var box=btn.parentNode.parentNode;
-      var txt=box.querySelector('pre').textContent;
-      try{navigator.clipboard.writeText(txt);}catch(e){}
-      var t=btn.textContent;
-      btn.textContent='\u5df2\u8907\u88fd \u2713';
-      setTimeout(function(){btn.textContent=t;},1500);
+      var pre=box.querySelector('pre');
+      var txt=pre.textContent;
+      var settled=false;
+      function won(){if(settled){return;}settled=true;flash(btn,'\u5df2\u8907\u88fd \u2713',1500);}
+      function lost(){if(settled){return;}settled=true;selectPre(pre);flash(btn,'\u5df2\u9078\u53d6 \u2192 \u6309 Ctrl+C',3000);}
+      function tryLegacy(){if(settled){return;}if(legacyCopy(txt)){won();}else{lost();}}
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(won,tryLegacy);
+        setTimeout(tryLegacy,900);
+      }else{
+        tryLegacy();
+      }
     };
   });
 
