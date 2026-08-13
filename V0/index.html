@@ -67,11 +67,6 @@
 
   .tree{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:.85rem .95rem;font-family:var(--mono);font-size:.82rem;line-height:2;color:var(--ink);white-space:pre;overflow-x:auto;margin:.5rem 0 1rem}
 
-  .imgbox{background:var(--paste);border-radius:12px;overflow:hidden;margin:.5rem 0 1rem;border:2px solid var(--accent)}
-  .imgbox .top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.08)}
-  .imgbox .top .t{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#b9a986;font-weight:700}
-  .imgbox img{display:block;width:100%;height:auto}
-
   .ok{display:flex;gap:.5rem;align-items:flex-start;background:var(--good-bg);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin:.2rem 0 1.2rem}
   .ok .c{color:var(--good);font-weight:800;white-space:nowrap}
   .note{display:flex;gap:.5rem;align-items:flex-start;background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.9rem;color:var(--soft);margin:.2rem 0 1.2rem}
@@ -108,48 +103,13 @@
     <div class="rail" id="rail"></div>
     <div id="panels">
 
-      <section class="panel" id="prep0">
-        <div class="stepno">事前準備</div>
-        <h2>建立專案資料夾</h2>
-        <p class="sub">所有例子共用，只做一次</p>
-        <div class="why">AI 要幫你動手，得先知道<b>去哪動手</b>。全班用同一個路徑，卡住的時候講師一眼就知道問題在哪。跟後面每一個例子一樣——<b>一句話交給 Claude Code，讓它自己在終端機把資料夾建好</b>，不用自己點滑鼠一格一格新增。</div>
-        <p class="hand">① 先讓 Claude Code 跑起來（跟上面「開始前」一樣）：按 <kbd>Win</kbd> 鍵 → 輸入 <b>powershell</b> → <kbd>Enter</kbd> → 打 <code>claude</code> 進到對話畫面。</p>
-        <p class="hand">② 把整段複製，貼給 Claude Code：</p>
-        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>請在 C:\AI-Workspace\Claude\Project 底下建立六個資料夾：001-Quote、002-MPT、003-Report、004-Expo、005-Demo、Credential</pre></div>
-        <div class="ok"><span class="c">✓ 成功長這樣</span><span>Claude Code 自己在終端機跑建立資料夾的指令，跑完會告訴你完成了——<b>不用自己點滑鼠新增</b>。</span></div>
-        <p class="hand">③ <b>確認建對了</b>：按 <kbd>Win</kbd> + <kbd>R</kbd>，貼上這一整行按 <kbd>Enter</kbd>：</p>
-        <div class="cmd"><div class="top"><span class="t">確認用 · 貼進「執行」小視窗</span><button class="copy">複製</button></div><pre>C:\AI-Workspace\Claude\Project</pre></div>
-        <div class="ok"><span class="c">✓ 這一步成功長這樣</span><span>視窗打開後<b>看得到六個資料夾</b>，編號跟左側例子編號對齊，做哪一個例子就進哪一個：</span></div>
-        <div class="tree">C:\AI-Workspace\Claude\Project\
-  001-Quote\   ← 業務報價系統（例子 1）
-  002-MPT\     ← 一句話影片機（例子 2）
-  003-Report\  ← 報表整合系統（例子 3）
-  004-Expo\    ← 會展掃描系統（例子 4）
-  005-Demo\    ← 飲料店訂購網頁（例子 5）
-  Credential\  ← 放金鑰／API Key 的資料夾（各例子共用，不對應特定例子）</div>
-        <details class="ex"><summary>Claude Code 說找不到路徑／權限不足怎麼辦？（備援作法）</summary><div class="exb">先確認①真的有跑起來——畫面上要看到 Claude Code 的對話框，不是空白的 PowerShell。還是不行，改用滑鼠手動建：按 <kbd>Win</kbd> + <kbd>R</kbd> 貼 <code>C:\</code> 開檔案總管 → 右鍵新增資料夾，名字都點一下就複製，不用自己打：<div class="chips">
-          <button class="chip" data-copy="AI-Workspace"><b>AI-Workspace</b><span>複製</span></button>
-          <button class="chip" data-copy="Claude"><b>Claude</b><span>複製</span></button>
-          <button class="chip" data-copy="Project"><b>Project</b><span>複製</span></button>
-        </div>進去 <code>Project</code> 之後再建六個資料夾：<div class="chips">
-          <button class="chip" data-copy="001-Quote"><b>001-Quote</b><span>複製</span></button>
-          <button class="chip" data-copy="002-MPT"><b>002-MPT</b><span>複製</span></button>
-          <button class="chip" data-copy="003-Report"><b>003-Report</b><span>複製</span></button>
-          <button class="chip" data-copy="004-Expo"><b>004-Expo</b><span>複製</span></button>
-          <button class="chip" data-copy="005-Demo"><b>005-Demo</b><span>複製</span></button>
-          <button class="chip" data-copy="Credential"><b>Credential</b><span>複製</span></button>
-        </div></div></details>
-        <div class="nav"><button class="next" id="prepNext">✓ 開始例子 1</button></div>
-      </section>
-
       <section class="panel case" data-t="業務報價系統" data-d="輸入數量就自動算金額的報價介面">
         <div class="stepno">例子 1　·　共 5 個</div>
         <h2>業務報價系統</h2>
         <p class="sub">隔離衣 Level 4</p>
         <div class="why">過去要嘛排隊等 IT，要嘛自己在 Excel 拉公式對半天，還常常算錯。現在你只要把「要什麼」講清楚——<b>AI 直接長出一個能操作的報價介面</b>，輸入數量，運費、稅金自動帶進去。</div>
-        <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>001-Quote</code> 是一個要先存在的資料夾——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
         <p class="do">把整段複製，貼給 Claude Code：</p>
-        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\001-Quote 我要一個業務報價系統產品是隔離衣等級4
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>我要一個業務報價系統產品是隔離衣等級4
 運費税金請先幫我
 拉一個
 操作介面 可以輸入 數量</pre></div>
@@ -162,73 +122,75 @@
         <h2>一句話影片機</h2>
         <p class="sub">MoneyPrinterTurbo · 站在巨人肩膀上</p>
         <div class="why">你<b>不用自己寫程式</b>——GitHub 上已經有人做好一台「影片機」。你只要跟 Claude 說「下載到哪、幫我跑起來」，它把環境裝好、網頁打開。這就是<b>借力</b>：借別人做好的成品（Billy 場會深講怎麼找、怎麼確認不是釣魚坑）。完整手把手在 <b>2-4</b>。</div>
-        <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>002-MPT</code> 是一個要先存在的資料夾——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
         <p class="do">把整段複製，貼給 Claude Code：</p>
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>https://github.com/harry0703/MoneyPrinterTurbo下載到
 電腦路徑C:\AI-Workspace\Claude\Project\002-MPT  網頁開啟</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>它自己把專案抓下來、裝好環境，最後<b>瀏覽器開出影片機的操作網頁</b>＝ 成功。</span></div>
+        <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>002-MPT</code> 是一個要先存在的資料夾——<b>在例子 3 的 Step 1 會一次建好四個</b>，建過就不用再建。</span></div>
         <div class="note"><span class="c">⏳ 要等</span><span>這支要下載的東西比較多，<b>跑幾分鐘是正常的</b>——畫面一直跳字就是還在做，不要關掉。</span></div>
       </section>
 
-      <section class="panel case" data-t="報表整合系統" data-d="先複製一張圖，第一次貼上就是它">
+      <section class="panel case" data-t="飲料店訂購網頁" data-d="全員動手：建資料夾 → 進去 → 一句話">
         <div class="stepno">例子 3　·　共 5 個</div>
-        <h2>報表整合系統</h2>
-        <p class="sub">Finance Hub System · 用一張畫面截圖當規格書</p>
-        <div class="why">不是每次都要打字描述介面長什麼樣——<b>你部門已經在用的畫面，本身就是最準的規格書</b>。把畫面截圖複製起來，貼給 Claude Code 當作第一次輸入，它能直接照圖把欄位、分區、排版都抓出來。</div>
-        <div class="note"><span class="c">📁 資料夾</span><span>這個例子的資料夾是 <code>003-Report</code>——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
-        <p class="do">① 先複製這張圖（點右上角按鈕，或直接在圖片上按右鍵→複製圖片）：</p>
-        <div class="imgbox">
-          <div class="top"><span class="t">參考畫面 · 記帳表單</span><button class="copy" id="imgCopyBtn">複製圖片</button></div>
-          <img src="assets/003-finance-hub-reference.png" alt="Finance Hub System 記帳表單參考畫面" id="refImg">
-        </div>
-        <p class="do">② 打開 Claude Code，<b>先貼上這張圖（Ctrl+V）</b>，再把這句話一起送出：</p>
-        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\003-Report 幫我做一個長得像這張圖的記帳系統，欄位、分區、排版都照圖片，資料先用假的，不用接資料庫</pre></div>
-        <div class="ok"><span class="c">✓ 成功長這樣</span><span>Claude Code 照圖把<b>基本資訊／銀行帳號資訊／金額資訊／其他資訊</b>幾個分區跟裡面的欄位都做出來，長得跟截圖是同一套系統＝ 成功。</span></div>
-        <div class="note"><span class="c">💡 換成你的</span><span>把截圖換成<b>你自己部門真的在用的表單畫面</b>，句型不用改——這是比打字描述更快的第一步。</span></div>
-      </section>
-
-      <section class="panel case" data-t="會展掃描系統" data-d="拍名片一句話生成，手機畫面 Demo">
-        <div class="stepno">例子 4　·　共 5 個</div>
-        <h2>會展掃描系統</h2>
-        <p class="sub">名片收集 App · 手機畫面 Demo（先做畫面，資料先用假的）</p>
-        <div class="why">會展攤位收名片，平常靠人工謄打、事後才整理。這一版<b>先只做手機操作畫面</b>——拍名片、手動填、記訂單三個入口，走完拍照 → 表單 → 送出的流程，還沒接真的資料庫。</div>
-        <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>004-Expo</code> 是一個要先存在的資料夾——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
-        <p class="do">把整段複製，貼給 Claude Code：</p>
-        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\004-Expo 做一個手機用的名片收集 app，先做畫面就好，不用真的能用。
-
-打開會看到三個大按鈕：
-📷 拍名片
-✍️ 手動填
-💰 記訂單
-
-按「拍名片」→ 出現一個假的相機畫面，中間有個框
-→ 按拍照 → 跳到表單頁
-
-表單頁有這些格子：
-姓名、公司、職稱、電話、Email、國家、
-有興趣的產品、備註
-下面兩個打勾：寄問候信、寄型錄
-最下面一顆「送出」按鈕
-
-送出後跳一頁「已儲存 ✓」
-
-紫色系，卡片有毛玻璃感，看起來高級一點。
-資料先用假的，不用接資料庫。</pre></div>
-        <div class="ok"><span class="c">✓ 成功長這樣</span><span>手機畫面看得到<b>拍名片／手動填／記訂單</b>三顆大按鈕，走完拍照 → 表單 → 送出，最後跳出<b>「已儲存 ✓」</b>＝ 成功。</span></div>
-        <div class="note"><span class="c">💡 換成你的</span><span>這一版<b>只做畫面、資料是假的</b>，先確認流程跟風格對不對；接真的資料庫是下一步。</span></div>
-      </section>
-
-      <section class="panel case" data-t="飲料店訂購網頁" data-d="全員動手：進資料夾 → 一句話">
-        <div class="stepno">例子 5　·　共 5 個</div>
         <h2>飲料店訂購網頁</h2>
         <p class="sub">現場 live demo（2-2）· 這一個全員親手做</p>
         <div class="why">一句話，當場長出一個<b>能點餐、能記單</b>的小系統：點品項 → 跳出視窗輸入名字 → 送出 → 看得到目前每個品項各賣了幾杯。<b>那張你看得懂的表，就是它的「資料庫」</b>——下週 Billy 場再教你把它搬進真正的資料庫。</div>
-        <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>005-DEMO</code> 是一個要先存在的資料夾——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
-        <p class="do">把整段複製，貼給 Claude Code：</p>
-        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\005-DEMO 請幫我做一個飲料店,訂購網頁有幾個熱門的品項,直接購買彈跳視窗輸入名字，送出後可以看到訂單料表 目前個別品項購買數量多少,</pre></div>
-        <div class="note"><span class="c">⚠️ 大小寫</span><span>這句話裡寫的是 <code>005-DEMO</code>，你建的是 <code>005-Demo</code>——<b>Windows 不分大小寫，這是同一個資料夾</b>。不用改、也不用重建。</span></div>
+
+        <div class="stephd"><span class="n">STEP 1</span>先把工作資料夾建好<span class="sfx">只做一次，後面每一場都用同一個</span></div>
+        <div class="note"><span class="c">為什麼</span><span>AI 要幫你動手，得先知道<b>去哪動手</b>。全班用同一個路徑，卡住的時候講師一眼就知道你的東西在哪；各建各的，講師要一台一台幫你找。</span></div>
+        <p class="hand">① 按鍵盤 <kbd>Win</kbd> + <kbd>R</kbd> —— 螢幕左下角會跳出一個小視窗（叫「執行」）。</p>
+        <p class="hand">② 把這個貼進去、按 <kbd>Enter</kbd> —— 檔案總管會<b>直接開在 C 槽</b>，不用自己找：</p>
+        <div class="cmd"><div class="top"><span class="t">貼進「執行」小視窗</span><button class="copy">複製</button></div><pre>C:\</pre></div>
+        <p class="hand">③ 在白色空白處按<b>滑鼠右鍵</b> → <b>新增</b> → <b>資料夾</b>，把名字改成 <code>AI-Workspace</code>。</p>
+        <p class="hand">④ 按兩下進去 <code>AI-Workspace</code>，同樣方式再建一個 <code>Claude</code>。</p>
+        <p class="hand">⑤ 按兩下進去 <code>Claude</code>，再建一個 <code>Project</code>。</p>
+        <p class="hand">⑥ 按兩下進去 <code>Project</code>，在裡面建<b>四個</b>資料夾。名字點一下就複製，不用自己打：</p>
+        <div class="chips">
+          <button class="chip" data-copy="001-Demo"><b>001-Demo</b><span>複製</span></button>
+          <button class="chip" data-copy="002-MPT"><b>002-MPT</b><span>複製</span></button>
+          <button class="chip" data-copy="003-notebooklm"><b>003-notebooklm</b><span>複製</span></button>
+          <button class="chip" data-copy="Credential"><b>Credential</b><span>複製</span></button>
+        </div>
+        <p class="hand">⑦ 建完長這樣：</p>
+        <div class="tree">C:\AI-Workspace\Claude\Project\
+  001-Demo\          ← 飲料店 Demo（這一堂要用）
+  002-MPT\           ← MoneyPrinterTurbo（例子 2）
+  003-notebooklm\    ← NotebookLM
+  Credential\        ← 金鑰</div>
+        <p class="hand">⑧ <b>確認你建對了</b>：再按一次 <kbd>Win</kbd> + <kbd>R</kbd>，貼上這一整行按 <kbd>Enter</kbd>：</p>
+        <div class="cmd"><div class="top"><span class="t">確認用 · 貼進「執行」小視窗</span><button class="copy">複製</button></div><pre>C:\AI-Workspace\Claude\Project</pre></div>
+        <div class="ok"><span class="c">✓ 這一步成功長這樣</span><span>視窗打開後<b>看得到那四個資料夾</b>＝ 建對了。<b>跳出「找不到」＝ 名字打錯或建錯層</b>，現在改比後面才發現輕鬆十倍。</span></div>
+        <details class="ex"><summary>按 Win + R 沒反應？（備援作法）</summary><div class="exb">有些公司電腦會把「執行」關掉。改走這條：<br>按 <kbd>Win</kbd> + <kbd>E</kbd> 打開<b>檔案總管</b> → 點左邊的「<b>本機</b>」（有些電腦寫「這台電腦」）→ 按兩下「<b>本機磁碟 (C:)</b>」→ 接著回到上面第 ③ 步繼續。</div></details>
+        <details class="ex"><summary>打資料夾名字最容易錯的三件事</summary><div class="exb"><b>① 中文輸入法沒關。</b>打出來的會是全形的 <code>００１－Ｄｅｍｏ</code>，看起來很像但電腦當成完全不同的字。<b>打名字前先按一下 <kbd>Shift</kbd> 切回英文。</b>（所以建議直接用上面的複製鈕。）<br><b>② 連字號打成底線或空白。</b>是 <code>001-Demo</code>（減號），不是 <code>001_Demo</code>、也不是 <code>001 Demo</code>。<br><b>③ 建錯層。</b>四個資料夾要在 <code>Project</code> <b>裡面</b>，不是跟 <code>Project</code> 並排。第 ⑧ 步的確認就是在抓這個。</div></details>
+
+        <div class="stephd"><span class="n">STEP 2</span>讓 Claude Code 到那個資料夾<span class="sfx">你在哪裡啟動它，它就只認得那裡</span></div>
+        <p class="hand">① 按 <kbd>Win</kbd> + <kbd>R</kbd>，輸入 <b>powershell</b>，按 <kbd>Enter</kbd>。</p>
+        <p class="hand">② 貼這一整行、按 <kbd>Enter</kbd> —— 告訴它「到飲料店這個資料夾工作」：</p>
+        <div class="cmd"><div class="top"><span class="t">貼進 PowerShell</span><button class="copy">複製整行</button></div><pre>cd C:\AI-Workspace\Claude\Project\001-Demo</pre></div>
+        <p class="hand">左邊那串字要變成 <code>PS C:\AI-Workspace\Claude\Project\001-Demo&gt;</code> 才對。</p>
+        <p class="hand">③ 啟動 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">貼進 PowerShell</span><button class="copy">複製</button></div><pre>claude</pre></div>
+        <div class="ok"><span class="c">✓ 這一步成功長這樣</span><span>進到 Claude Code 的<b>對話畫面</b>，可以打字了 ＝ 可以往下走。</span></div>
+
+        <div class="stephd"><span class="n">STEP 3</span>把整段複製，貼給 Claude Code</div>
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\001-DEMO 請幫我做一個飲料店,訂購網頁有幾個熱門的品項,直接購買彈跳視窗輸入名字，送出後可以看到訂單料表 目前個別品項購買數量多少,</pre></div>
+        <div class="note"><span class="c">⚠️ 大小寫</span><span>這句話裡寫的是 <code>001-DEMO</code>，你建的是 <code>001-Demo</code>——<b>Windows 不分大小寫，這是同一個資料夾</b>。不用改、也不用重建。</span></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>網頁能下單，而且下完單<b>看得到每個品項的累計數量</b>＝ 成功。</span></div>
         <div class="note"><span class="c">💡 換成你的</span><span>把「飲料店」換成<b>你部門真的在收的東西</b>（報修單、領料單、訂便當），句型完全一樣。</span></div>
+      </section>
+
+      <section class="panel case soon" data-t="（待補）" data-d="上課前補上">
+        <div class="stepno">例子 4　·　共 5 個</div>
+        <h2>（待補）</h2>
+        <p class="sub">內容確認中</p>
+        <div class="soonbox">這一格還在拍板<br>上課前會補上</div>
+      </section>
+
+      <section class="panel case soon" data-t="（待補）" data-d="上課前補上">
+        <div class="stepno">例子 5　·　共 5 個</div>
+        <h2>（待補）</h2>
+        <p class="sub">內容確認中</p>
+        <div class="soonbox">這一格還在拍板<br>上課前會補上</div>
       </section>
 
       <section class="panel" id="donepanel">
@@ -249,28 +211,20 @@
 <script>
   var panels=[].slice.call(document.querySelectorAll('#panels .case'));
   var donePanel=document.getElementById('donepanel');
-  var prepPanel=document.getElementById('prep0');
-  var N=panels.length, cur=0, done=[], showingPrep=false;
+  var N=panels.length, cur=0, done=[];
   for(var i=0;i<N;i++){done.push(false);}
   var $=function(id){return document.getElementById(id);};
 
   function renderRail(){
-    var prepHtml='<div class="rstep prep '+(showingPrep?'cur':'')+'" data-prep="1">'+
-                 '<span class="dot">0</span>'+
-                 '<div class="rtx"><span class="rt">0\u3000\u5efa\u7acb\u5c08\u6848\u8cc7\u6599\u593e</span>'+
-                 '<span class="rd">\u6240\u6709\u4f8b\u5b50\u5171\u7528\uff0c\u53ea\u505a\u4e00\u6b21</span></div></div>';
-    $('rail').innerHTML=prepHtml+panels.map(function(p,k){
+    $('rail').innerHTML=panels.map(function(p,k){
       var soon=p.classList.contains('soon');
-      var isCur=(!showingPrep&&k===cur);
-      return '<div class="rstep '+(isCur?'cur':'')+' '+(done[k]?'done':'')+' '+(soon?'soon':'')+'" data-k="'+k+'">'+
+      return '<div class="rstep '+(k===cur?'cur':'')+' '+(done[k]?'done':'')+' '+(soon?'soon':'')+'" data-k="'+k+'">'+
              '<span class="dot">'+(done[k]?'\u2713':(k+1))+'</span>'+
              '<div class="rtx"><span class="rt">\u4f8b\u5b50 '+(k+1)+'\u3000'+p.getAttribute('data-t')+'</span>'+
              '<span class="rd">'+p.getAttribute('data-d')+'</span></div></div>';
     }).join('');
-    var prepEl=document.querySelector('.rstep.prep');
-    if(prepEl){prepEl.onclick=function(){showingPrep=true;render();window.scrollTo(0,0);};}
-    [].forEach.call(document.querySelectorAll('.rstep[data-k]'),function(e){
-      e.onclick=function(){showingPrep=false;cur=+e.getAttribute('data-k');render();window.scrollTo(0,0);};
+    [].forEach.call(document.querySelectorAll('.rstep'),function(e){
+      e.onclick=function(){cur=+e.getAttribute('data-k');render();window.scrollTo(0,0);};
     });
   }
 
@@ -280,13 +234,6 @@
     $('fill').style.width=(doneCount/N*100)+'%';
     panels.forEach(function(p){p.classList.remove('on');});
     donePanel.classList.remove('on');
-    prepPanel.classList.remove('on');
-    if(showingPrep){
-      $('barlab').textContent='\u4e8b\u524d\u6e96\u5099';
-      prepPanel.classList.add('on');
-      renderRail();
-      return;
-    }
     if(cur>=N){
       $('barlab').textContent='\u5168\u90e8\u770b\u5b8c \ud83c\udf89';
       $('fill').style.width='100%';
@@ -362,26 +309,7 @@
       doCopy(chip.querySelector('span'),chip.getAttribute('data-copy'),chip.querySelector('b'));
     };
   });
-  var imgCopyBtn=document.getElementById('imgCopyBtn');
-  if(imgCopyBtn){
-    imgCopyBtn.onclick=function(){
-      var img=document.getElementById('refImg');
-      function fail(){flash(imgCopyBtn,'請在圖片上按右鍵→複製圖片',3000);}
-      try{
-        var canvas=document.createElement('canvas');
-        canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
-        canvas.getContext('2d').drawImage(img,0,0);
-        canvas.toBlob(function(blob){
-          if(!blob||!navigator.clipboard||!window.ClipboardItem){fail();return;}
-          navigator.clipboard.write([new ClipboardItem({'image/png':blob})]).then(function(){
-            flash(imgCopyBtn,'已複製 ✓',1500);
-          },fail);
-        },'image/png');
-      }catch(e){fail();}
-    };
-  }
 
-  $('again').onclick=function(){showingPrep=false;cur=N-1;render();window.scrollTo(0,0);};
-  $('prepNext').onclick=function(){showingPrep=false;cur=0;render();window.scrollTo(0,0);};
+  $('again').onclick=function(){cur=N-1;render();window.scrollTo(0,0);};
   render();
 </script>

@@ -1,0 +1,194 @@
+<title>會展掃描系統 · 名片收集 App（畫面 Demo）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg1:#1c1330;--bg2:#2c1b4d;--glass:rgba(255,255,255,.08);--glass-b:rgba(255,255,255,.16);
+    --ink:#f3eefc;--soft:#c9bce2;--faint:#9884b8;
+    --accent:#a97bff;--accent2:#7c4dff;--good:#7ee0b0;--good-bg:rgba(126,224,176,.14);
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;font-family:var(--sans);color:var(--ink);
+    background:radial-gradient(circle at 20% 0%,#3a2262,transparent 55%),
+               radial-gradient(circle at 100% 30%,#4a2a7a,transparent 50%),
+               linear-gradient(160deg,var(--bg1),var(--bg2));
+    display:flex;align-items:center;justify-content:center;padding:2.5rem 1rem;
+  }
+  .phone{
+    width:100%;max-width:390px;height:min(820px,92vh);
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0));
+    border:1px solid var(--glass-b);border-radius:38px;padding:.6rem;
+    box-shadow:0 30px 70px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.15);
+  }
+  .screenwrap{
+    position:relative;height:100%;border-radius:30px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+    border:1px solid var(--glass-b);
+  }
+  .bar{height:1.6rem;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--faint);letter-spacing:.08em}
+  .screen{position:absolute;inset:0;top:1.6rem;display:none;flex-direction:column;padding:1.1rem 1.1rem 1.4rem;overflow-y:auto}
+  .screen.on{display:flex}
+
+  .hd{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.15rem}
+  .title{font-size:1.25rem;font-weight:800;margin-bottom:1.1rem}
+
+  .glass{
+    background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--glass-b);border-radius:20px;
+  }
+
+  .bigbtns{display:flex;flex-direction:column;gap:.9rem;margin-top:.4rem}
+  .bigbtn{
+    display:flex;align-items:center;gap:.9rem;padding:1.15rem 1.1rem;cursor:pointer;
+    transition:transform .12s,border-color .12s;
+  }
+  .bigbtn:active{transform:scale(.98)}
+  .bigbtn:hover{border-color:var(--accent)}
+  .bigbtn .ic{font-size:1.7rem;flex:0 0 auto;width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center}
+  .bigbtn .tx b{display:block;font-size:1.02rem;font-weight:800}
+  .bigbtn .tx span{display:block;font-size:.78rem;color:var(--faint);margin-top:.15rem}
+  .bigbtn .arrow{margin-left:auto;color:var(--faint);font-size:1.1rem}
+
+  .cam{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem}
+  .camview{
+    width:100%;aspect-ratio:3/4;border-radius:22px;
+    background:repeating-linear-gradient(135deg,#241638,#241638 10px,#2a1a40 10px,#2a1a40 20px);
+    position:relative;display:flex;align-items:center;justify-content:center;
+  }
+  .camframe{width:78%;height:52%;border:2.5px dashed var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:.8rem;text-align:center;padding:.5rem}
+  .shutter{
+    width:68px;height:68px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--accent) 60%);
+    border:4px solid var(--glass-b);cursor:pointer;
+  }
+  .camhint{color:var(--faint);font-size:.82rem;text-align:center}
+
+  form{display:flex;flex-direction:column;gap:.7rem;margin-top:.2rem}
+  .field label{display:block;font-size:.76rem;color:var(--soft);font-weight:700;margin-bottom:.3rem}
+  .field input,.field select,.field textarea{
+    width:100%;font-family:inherit;font-size:.92rem;color:var(--ink);background:rgba(255,255,255,.06);
+    border:1px solid var(--glass-b);border-radius:11px;padding:.6rem .75rem;outline:none;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+  .field textarea{resize:none;min-height:3.2rem;font-family:inherit}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  .checks{display:flex;flex-direction:column;gap:.5rem;margin:.3rem 0 .2rem;font-size:.86rem}
+  .checks label{display:flex;align-items:center;gap:.55rem;color:var(--soft)}
+  .checks input{width:17px;height:17px;accent-color:var(--accent)}
+  .submit{
+    margin-top:.6rem;font-family:inherit;font-size:1rem;font-weight:800;color:#1c1330;
+    background:linear-gradient(135deg,#c8aaff,var(--accent));border:0;border-radius:14px;padding:.85rem;cursor:pointer;
+  }
+  .backrow{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;color:var(--faint);font-size:.82rem;cursor:pointer}
+  .backrow:hover{color:var(--ink)}
+
+  .saved{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center}
+  .check{
+    width:78px;height:78px;border-radius:50%;background:var(--good-bg);border:2px solid var(--good);
+    display:flex;align-items:center;justify-content:center;font-size:2.1rem;color:var(--good);
+  }
+  .saved .big{font-size:1.2rem;font-weight:800}
+  .saved p{color:var(--faint);font-size:.85rem;max-width:16rem}
+  .again{
+    margin-top:.6rem;font-family:inherit;font-size:.86rem;font-weight:700;color:var(--ink);
+    background:transparent;border:1px solid var(--glass-b);border-radius:12px;padding:.65rem 1.2rem;cursor:pointer;
+  }
+
+  .soon{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;text-align:center;color:var(--faint)}
+  .foot{text-align:center;color:var(--faint);font-size:.68rem;margin-top:2rem;letter-spacing:.04em}
+</style>
+
+<div class="phone">
+  <div class="screenwrap">
+    <div class="bar">會展掃描系統</div>
+
+    <div class="screen on" data-screen="home">
+      <div class="hd">名片收集</div>
+      <div class="title">今天要做什麼？</div>
+      <div class="bigbtns">
+        <div class="glass bigbtn" data-go="camera">
+          <span class="ic">📷</span>
+          <span class="tx"><b>拍名片</b><span>對準框框，一秒建檔</span></span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="glass bigbtn" data-go="form">
+          <span class="ic">✍️</span>
+          <span class="tx"><b>手動填</b><span>沒名片、用打的也行</span></span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="glass bigbtn" data-go="soon">
+          <span class="ic">💰</span>
+          <span class="tx"><b>記訂單</b><span>現場成交，順手記一筆</span></span>
+          <span class="arrow">›</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen" data-screen="camera">
+      <div class="backrow" data-go="home">‹ 返回</div>
+      <div class="cam">
+        <div class="camview"><div class="camframe">把名片對準框框</div></div>
+        <div class="shutter" data-go="form"></div>
+        <div class="camhint">按下快門拍照（畫面 Demo，非真的相機）</div>
+      </div>
+    </div>
+
+    <div class="screen" data-screen="form">
+      <div class="backrow" data-go="home">‹ 返回</div>
+      <div class="hd">名片資訊</div>
+      <div class="title">確認 / 補齊資料</div>
+      <form>
+        <div class="field"><label>姓名</label><input type="text" placeholder="王小明"></div>
+        <div class="row2">
+          <div class="field"><label>公司</label><input type="text" placeholder="○○股份有限公司"></div>
+          <div class="field"><label>職稱</label><input type="text" placeholder="業務經理"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>電話</label><input type="tel" placeholder="09xx-xxx-xxx"></div>
+          <div class="field"><label>Email</label><input type="email" placeholder="name@company.com"></div>
+        </div>
+        <div class="field"><label>國家</label>
+          <select>
+            <option>台灣</option><option>日本</option><option>美國</option><option>其他</option>
+          </select>
+        </div>
+        <div class="field"><label>有興趣的產品</label><input type="text" placeholder="例如：隔離衣 Level 4"></div>
+        <div class="field"><label>備註</label><textarea placeholder="現場聊到的重點"></textarea></div>
+        <div class="checks">
+          <label><input type="checkbox" checked> 寄問候信</label>
+          <label><input type="checkbox"> 寄型錄</label>
+        </div>
+        <button type="button" class="submit" data-go="saved">送出</button>
+      </form>
+    </div>
+
+    <div class="screen" data-screen="saved">
+      <div class="saved">
+        <div class="check">✓</div>
+        <div class="big">已儲存 ✓</div>
+        <p>這張名片已經存進今天的名單，攤位可以繼續收下一張。</p>
+        <button class="again" data-go="home">回首頁</button>
+      </div>
+    </div>
+
+    <div class="screen" data-screen="soon">
+      <div class="backrow" data-go="home">‹ 返回</div>
+      <div class="soon">
+        <div style="font-size:2rem">💰</div>
+        <div style="font-weight:800;color:var(--ink)">記訂單</div>
+        <p style="max-width:14rem;font-size:.85rem">畫面規劃中，敬請期待</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(el){
+    el.addEventListener('click',function(){
+      var target=el.getAttribute('data-go');
+      [].forEach.call(document.querySelectorAll('.screen'),function(s){s.classList.remove('on');});
+      document.querySelector('.screen[data-screen="'+target+'"]').classList.add('on');
+    });
+  });
+</script>
