@@ -1,0 +1,213 @@
+<title>4A · Devin 場 · 魔法的世界「一句話→完成」</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --paper:#f5f0e6;--card:#efe7d6;--card2:#e4dccb;--ink:#2b2620;--soft:#6d6456;--faint:#93897a;--line:#ddd1bc;
+    --accent:#9a6634;--accent2:#b98a52;--good:#5a7d4a;--good-bg:#e4ecdc;--paste:#2b2620;--paste-ink:#f0e6d4;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
+    --serif:Georgia,"Songti TC","Noto Serif CJK TC",serif;--mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{--paper:#201c17;--card:#2a2419;--card2:#332b1e;--ink:#ece3d3;--soft:#b3a892;--faint:#8c8271;--line:#3a3226;--accent:#d09a5f;--accent2:#b6844f;--good:#8fb079;--good-bg:#2b3324;--paste:#15120d;--paste-ink:#ece3d3;}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased;padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:1000px;margin:0 auto}
+  header{margin-bottom:1.2rem}
+  .eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-family:var(--serif);font-size:clamp(1.6rem,5vw,2.2rem);margin:.3rem 0 .3rem}
+  .lede{color:var(--soft);font-size:1rem;max-width:38rem}
+  .bar{height:8px;background:var(--card2);border-radius:99px;overflow:hidden;margin:1rem 0 .4rem}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:99px;transition:width .4s}
+  .barlab{font-size:.82rem;color:var(--faint);font-weight:700;text-align:right}
+  .pre{display:flex;gap:.5rem;align-items:flex-start;background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.9rem;color:var(--soft);margin:1rem 0 .2rem}
+  .pre .c{color:var(--accent);font-weight:800;white-space:nowrap}
+  .pre a{color:var(--accent);font-weight:700}
+
+  .layout{display:grid;grid-template-columns:320px 1fr;gap:1.3rem;align-items:start;margin-top:1.2rem}
+  @media(max-width:720px){.layout{grid-template-columns:1fr}}
+  .rail{display:flex;flex-direction:column;gap:.7rem}
+  .rstep{display:flex;align-items:flex-start;gap:.8rem;padding:.85rem .95rem;border-radius:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);transition:border-color .15s}
+  .rstep:hover{border-color:var(--accent2)}
+  .rstep.cur{border-color:var(--accent);border-width:2px}
+  .rstep .dot{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--card2);color:var(--faint);font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;border:2px solid var(--line);margin-top:1px}
+  .rstep.cur .dot{border-color:var(--accent);color:var(--accent);background:var(--paper)}
+  .rstep.done .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+  .rstep.soon .dot{border-style:dashed}
+  .rtx{display:flex;flex-direction:column;gap:2px}
+  .rt{font-size:.98rem;font-weight:700;line-height:1.3}
+  .rd{font-size:.8rem;color:var(--soft);line-height:1.45}
+  .rstep.done .rt{color:var(--faint)}
+  .rstep.soon .rt,.rstep.soon .rd{color:var(--faint)}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(1.1rem,3vw,1.7rem);display:none}
+  .panel.on{display:block}
+  .stepno{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .panel h2{font-family:var(--serif);font-size:1.5rem;margin:.25rem 0 .1rem}
+  .sub{color:var(--faint);font-size:.9rem;font-weight:700;margin-bottom:.6rem}
+  .why{background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.95rem;color:var(--soft);margin-bottom:1.1rem}
+  .why b{color:var(--ink)}
+  .do{font-weight:700;margin:.2rem 0 .5rem}
+  .cmd{background:var(--paste);border-radius:12px;overflow:hidden;margin:.5rem 0 1rem;border:2px solid var(--accent)}
+  .cmd .top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.5rem .8rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .cmd .top .t{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#b9a986;font-weight:700}
+  .cmd .copy{font-family:inherit;font-size:.8rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:7px;padding:.35rem .8rem;cursor:pointer;white-space:nowrap}
+  .cmd pre{margin:0;padding:.85rem .9rem;font-family:var(--mono);font-size:.86rem;line-height:1.75;color:var(--paste-ink);white-space:pre-wrap;word-break:break-word}
+  .ok{display:flex;gap:.5rem;align-items:flex-start;background:var(--good-bg);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin:.2rem 0 1.2rem}
+  .ok .c{color:var(--good);font-weight:800;white-space:nowrap}
+  .note{display:flex;gap:.5rem;align-items:flex-start;background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.9rem;color:var(--soft);margin:.2rem 0 1.2rem}
+  .note .c{color:var(--accent);font-weight:800;white-space:nowrap}
+  .soonbox{background:var(--card2);border:2px dashed var(--line);border-radius:12px;padding:1.6rem 1rem;text-align:center;color:var(--faint);font-weight:700;margin:.6rem 0 1.2rem;line-height:1.9}
+  .panel code{font-family:var(--mono);background:var(--card2);padding:.1rem .35rem;border-radius:4px;font-size:.85em;color:var(--accent)}
+  .nav{display:flex;gap:.7rem;flex-wrap:wrap}
+  button.next{font-family:inherit;font-size:1rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:11px;padding:.75rem 1.4rem;cursor:pointer}
+  button.prev{font-family:inherit;font-size:.95rem;font-weight:600;background:transparent;color:var(--soft);border:1px solid var(--line);border-radius:11px;padding:.75rem 1.1rem;cursor:pointer}
+  .done-panel{text-align:center;padding:2rem 1rem}
+  .done-panel .big{font-family:var(--serif);font-size:1.8rem;color:var(--accent);margin:.4rem 0}
+  .done-panel p{color:var(--soft);max-width:28rem;margin:.4rem auto}
+  .foot{text-align:center;color:var(--faint);font-size:.78rem;margin-top:1.4rem}
+  .foot a{color:var(--accent)}
+</style>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">2 ·（8/14）Devin 場 · 說→做</p>
+    <h1>魔法的世界「一句話→完成」</h1>
+    <p class="lede">5 個例子，每一個都附上<b>現場真正貼進去的那一句話</b>。按「複製」，貼給 Claude Code，它就開始做——過去只有專業才能做的事，你只要把話講清楚。</p>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="barlab" id="barlab">例子 1 / 共 5 個</div>
+    <div class="pre"><span class="c">開始前</span><span>先讓 Claude Code 跑起來：按 <b>Win 鍵</b> → 輸入 <b>powershell</b> → <b>Enter</b> → 打 <code>claude</code> 進到對話畫面，再回來按「複製」。還沒裝好 → <a href="https://micl-legal.github.io/4a-sgx-demo/setup.html" target="_blank" rel="noopener">回裝機精靈 1-2 ↗</a></span></div>
+  </header>
+
+  <div class="layout">
+    <div class="rail" id="rail"></div>
+    <div id="panels">
+
+      <section class="panel case" data-t="業務報價系統" data-d="輸入數量就自動算金額的報價介面">
+        <div class="stepno">例子 1　·　共 5 個</div>
+        <h2>業務報價系統</h2>
+        <p class="sub">隔離衣 Level 4</p>
+        <div class="why">過去要嘛排隊等 IT，要嘛自己在 Excel 拉公式對半天，還常常算錯。現在你只要把「要什麼」講清楚——<b>AI 直接長出一個能操作的報價介面</b>，輸入數量，運費、稅金自動帶進去。</div>
+        <p class="do">把整段複製，貼給 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>我要一個業務報價系統產品是隔離衣等級4
+運費税金請先幫我
+拉一個
+操作介面 可以輸入 數量</pre></div>
+        <div class="ok"><span class="c">✓ 成功長這樣</span><span>瀏覽器跑出一個報價畫面，<b>輸入數量就自動算出金額</b>（含運費、稅金）＝ 成功。</span></div>
+        <div class="note"><span class="c">💡 換成你的</span><span>把「隔離衣等級4」改成<b>你自己部門的產品</b>，其他照抄——這就是你今天帶回去的第一塊。</span></div>
+      </section>
+
+      <section class="panel case" data-t="一句話影片機" data-d="借 GitHub 上別人做好的，下載跑起來">
+        <div class="stepno">例子 2　·　共 5 個</div>
+        <h2>一句話影片機</h2>
+        <p class="sub">MoneyPrinterTurbo · 站在巨人肩膀上</p>
+        <div class="why">你<b>不用自己寫程式</b>——GitHub 上已經有人做好一台「影片機」。你只要跟 Claude 說「下載到哪、幫我跑起來」，它把環境裝好、網頁打開。這就是<b>借力</b>：借別人做好的成品（Billy 場會深講怎麼找、怎麼確認不是釣魚坑）。完整手把手在 <b>2-4</b>。</div>
+        <p class="do">把整段複製，貼給 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>https://github.com/harry0703/MoneyPrinterTurbo下載到
+電腦路徑C:\AI-Workspace\Claude\Project\002-MPT  網頁開啟</pre></div>
+        <div class="ok"><span class="c">✓ 成功長這樣</span><span>它自己把專案抓下來、裝好環境，最後<b>瀏覽器開出影片機的操作網頁</b>＝ 成功。</span></div>
+        <div class="note"><span class="c">⏳ 要等</span><span>這支要下載的東西比較多，<b>跑幾分鐘是正常的</b>——畫面一直跳字就是還在做，不要關掉。</span></div>
+      </section>
+
+      <section class="panel case" data-t="飲料店訂購網頁" data-d="能點餐、能記單、看得到賣幾杯">
+        <div class="stepno">例子 3　·　共 5 個</div>
+        <h2>飲料店訂購網頁</h2>
+        <p class="sub">現場 live demo（2-2）</p>
+        <div class="why">一句話，當場長出一個<b>能點餐、能記單</b>的小系統：點品項 → 跳出視窗輸入名字 → 送出 → 看得到目前每個品項各賣了幾杯。<b>那張你看得懂的表，就是它的「資料庫」</b>——下週 Billy 場再教你把它搬進真正的資料庫。</div>
+        <p class="do">把整段複製，貼給 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\001-DEMO 請幫我做一個飲料店,訂購網頁有幾個熱門的品項,直接購買彈跳視窗輸入名字，送出後可以看到訂單料表 目前個別品項購買數量多少,</pre></div>
+        <div class="ok"><span class="c">✓ 成功長這樣</span><span>網頁能下單，而且下完單<b>看得到每個品項的累計數量</b>＝ 成功。</span></div>
+        <div class="note"><span class="c">💡 換成你的</span><span>把「飲料店」換成<b>你部門真的在收的東西</b>（報修單、領料單、訂便當），句型完全一樣。</span></div>
+      </section>
+
+      <section class="panel case soon" data-t="（待補）" data-d="上課前補上">
+        <div class="stepno">例子 4　·　共 5 個</div>
+        <h2>（待補）</h2>
+        <p class="sub">內容確認中</p>
+        <div class="soonbox">這一格還在拍板<br>上課前會補上</div>
+      </section>
+
+      <section class="panel case soon" data-t="（待補）" data-d="上課前補上">
+        <div class="stepno">例子 5　·　共 5 個</div>
+        <h2>（待補）</h2>
+        <p class="sub">內容確認中</p>
+        <div class="soonbox">這一格還在拍板<br>上課前會補上</div>
+      </section>
+
+      <section class="panel" id="donepanel">
+        <div class="done-panel">
+          <div class="stepno">DONE</div>
+          <div class="big">5 個例子看完了</div>
+          <p>它們的共同點只有一個：<b>你把話講清楚，它就做出來。</b></p>
+          <p>現在換你——把你手上<b>最煩的那一件事</b>講給它聽。</p>
+          <p style="margin-top:1rem"><button class="prev" id="again">← 回去看某一個</button></p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+  <p class="foot">2026 4A AI 工作坊　·　8/14 Devin 場　|　配套：<a href="https://micl-legal.github.io/4a-sgx-demo/setup.html" target="_blank" rel="noopener">會前會裝機精靈 ↗</a></p>
+</div>
+
+<script>
+  var panels=[].slice.call(document.querySelectorAll('#panels .case'));
+  var donePanel=document.getElementById('donepanel');
+  var N=panels.length, cur=0, done=[];
+  for(var i=0;i<N;i++){done.push(false);}
+  var $=function(id){return document.getElementById(id);};
+
+  function renderRail(){
+    $('rail').innerHTML=panels.map(function(p,k){
+      var soon=p.classList.contains('soon');
+      return '<div class="rstep '+(k===cur?'cur':'')+' '+(done[k]?'done':'')+' '+(soon?'soon':'')+'" data-k="'+k+'">'+
+             '<span class="dot">'+(done[k]?'\u2713':(k+1))+'</span>'+
+             '<div class="rtx"><span class="rt">\u4f8b\u5b50 '+(k+1)+'\u3000'+p.getAttribute('data-t')+'</span>'+
+             '<span class="rd">'+p.getAttribute('data-d')+'</span></div></div>';
+    }).join('');
+    [].forEach.call(document.querySelectorAll('.rstep'),function(e){
+      e.onclick=function(){cur=+e.getAttribute('data-k');render();};
+    });
+  }
+
+  function render(){
+    var doneCount=0;
+    for(var i=0;i<N;i++){if(done[i]){doneCount++;}}
+    $('fill').style.width=(doneCount/N*100)+'%';
+    panels.forEach(function(p){p.classList.remove('on');});
+    donePanel.classList.remove('on');
+    if(cur>=N){
+      $('barlab').textContent='\u5168\u90e8\u770b\u5b8c \ud83c\udf89';
+      $('fill').style.width='100%';
+      donePanel.classList.add('on');
+      renderRail();
+      return;
+    }
+    $('barlab').textContent='\u4f8b\u5b50 '+(cur+1)+' / \u5171 '+N+' \u500b';
+    var p=panels[cur];
+    p.classList.add('on');
+    var old=p.querySelector('.nav'); if(old){old.parentNode.removeChild(old);}
+    var nav=document.createElement('div');
+    nav.className='nav';
+    nav.innerHTML=(cur>0?'<button class="prev" data-go="prev">\u4e0a\u4e00\u500b</button>':'')+
+                  '<button class="next" data-go="next">'+(cur===N-1?'\u2713 \u770b\u5b8c\u4e86':'\u2713 \u4e0b\u4e00\u500b\u4f8b\u5b50')+'</button>';
+    p.appendChild(nav);
+    [].forEach.call(nav.querySelectorAll('button'),function(b){
+      b.onclick=function(){
+        if(b.getAttribute('data-go')==='next'){done[cur]=true;cur++;}else{cur--;}
+        render();
+      };
+    });
+    renderRail();
+  }
+
+  [].forEach.call(document.querySelectorAll('.cmd .copy'),function(btn){
+    btn.onclick=function(){
+      var box=btn.parentNode.parentNode;
+      var txt=box.querySelector('pre').textContent;
+      try{navigator.clipboard.writeText(txt);}catch(e){}
+      var t=btn.textContent;
+      btn.textContent='\u5df2\u8907\u88fd \u2713';
+      setTimeout(function(){btn.textContent=t;},1500);
+    };
+  });
+
+  $('again').onclick=function(){cur=N-1;render();};
+  render();
+</script>
