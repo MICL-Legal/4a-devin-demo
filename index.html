@@ -65,6 +65,10 @@
   .chip:hover{background:var(--accent);color:#fff}
   .chip:hover span{color:#fff}
 
+  .fld{font-family:var(--mono);font-size:.84rem;font-weight:600;padding:.6rem .8rem;border-radius:10px;border:2px solid var(--accent);background:var(--card2);color:var(--ink);width:100%;margin:.15rem 0 .7rem}
+  .fld::placeholder{color:var(--faint);font-weight:400}
+  .fldlab{font-weight:700;font-size:.92rem;margin:.6rem 0 .1rem;color:var(--ink)}
+
   .tree{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:.85rem .95rem;font-family:var(--mono);font-size:.82rem;line-height:2;color:var(--ink);white-space:pre;overflow-x:auto;margin:.5rem 0 1rem}
 
   .imgbox{background:var(--paste);border-radius:12px;overflow:hidden;margin:.5rem 0 1rem;border:2px solid var(--accent)}
@@ -280,7 +284,7 @@
         </div></details>
       </section>
 
-      <section class="panel case" data-t="飲料店訂購網頁" data-d="全員動手：進資料夾 → 一句話">
+      <section class="panel case" data-t="飲料店訂購網頁" data-d="全員動手：一句話做網頁，再接上 Google 試算表">
         <div class="stepno">例子 5　·　共 5 個</div>
         <h2>飲料店訂購網頁</h2>
         <p class="sub">現場 live demo（2-2）· 這一個全員親手做</p>
@@ -290,6 +294,25 @@
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\005-DEMO 請幫我做一個飲料店,訂購網頁有幾個熱門的品項,直接購買彈跳視窗輸入名字，送出後可以看到訂單料表 目前個別品項購買數量多少,</pre></div>
         <div class="note"><span class="c">⚠️ 大小寫</span><span>這句話裡寫的是 <code>005-DEMO</code>，你建的是 <code>005-Demo</code>——<b>Windows 不分大小寫，這是同一個資料夾</b>。不用改、也不用重建。</span></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>網頁能下單，而且下完單<b>看得到每個品項的累計數量</b>＝ 成功。</span></div>
+        <div class="stephd"><span class="n">加碼</span>把訂單同步到你的 Google 試算表<span class="sfx">上面那個網頁做出來之後再做這一步</span></div>
+        <p class="hand">剛才做出來的網頁，訂單只留在你那台電腦裡。<b>再一句話，就能讓每一筆訂單自動寫進你自己的 Google 試算表</b>——誰都看得到、誰都能改，而且你完全不用學資料庫。</p>
+
+        <div class="note"><span class="c">🔑 先準備</span><span>你需要一把 <b>GCP 服務帳戶金鑰（<code>.json</code>）</b>。還沒有就照這頁拿：<a href="https://micl-legal.github.io/4a-sgx-demo/gcp-sheets.html" target="_blank" rel="noopener">GCP → Sheets 完整教學 ↗</a>。下載後<b>把檔案放進 <code>C:\AI-Workspace\Claude\Project\Credential\</code></b>——事前準備已經幫你建好那個資料夾了。</span></div>
+
+        <div class="ok" style="background:var(--card2);color:var(--soft)"><span class="c" style="color:var(--accent);white-space:nowrap">⚠️ 最容易漏掉的一步</span><span>光有金鑰還不夠，<b>你得把金鑰的身分加進試算表的共用名單</b>。<br>用記事本打開那個 <code>.json</code>，找到 <code>client_email</code> 那一行（長得像 <code>xxx@xxx.iam.gserviceaccount.com</code>）→ <b>複製它 → 打開你的試算表 → 右上角「共用」→ 貼上 → 權限選「編輯者」→ 傳送</b>。<br><b>少了這步，程式跑起來也寫不進去</b>，它會回你沒有權限。</span></div>
+
+        <p class="fldlab">① 你的金鑰檔完整路徑</p>
+        <input id="sheetKey" class="fld" spellcheck="false" placeholder="C:\AI-Workspace\Claude\Project\Credential\你的金鑰檔.json">
+        <p class="fldlab">② 你的 Google 試算表網址（整條貼上就好）</p>
+        <input id="sheetUrl" class="fld" spellcheck="false" placeholder="https://docs.google.com/spreadsheets/d/你的試算表ID/edit">
+
+        <p class="do">上面兩格一填，下面這段就跟著長出來——複製整段，貼給 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">你的專屬指令 · 會跟著上面兩格自動更新</span><button class="copy">複製整段</button></div><pre id="sheetOut"></pre></div>
+
+        <div class="ok"><span class="c">✓ 成功長這樣</span><span>回網頁下一筆單，<b>切到試算表的 <code>Orders</code> 分頁，那一列就出現了</b>——時間、姓名、品項ID、品項名稱、數量 ＝ 成功。</span></div>
+
+        <div class="note"><span class="c">💡 這一步在教什麼</span><span>你剛剛做的，是<b>把自己做的東西接上外面的服務</b>。同一招，把試算表網址換成你部門真的在用的那一張，就接上了。<b>下週 Billy 場再教你把它從試算表搬進真正的資料庫。</b></span></div>
+
         <div class="note"><span class="c">💡 換成你的</span><span>把「飲料店」換成<b>你部門真的在收的東西</b>（報修單、領料單、訂便當），句型完全一樣。</span></div>
       </section>
 
@@ -545,6 +568,24 @@
       }catch(e){fail();}
     };
   });
+
+  // \u4f8b\u5b50 5 \u52a0\u78bc\uff1a\u5169\u683c\u8f38\u5165 \u2192 \u81ea\u52d5\u62fc\u51fa\u63a5 Google \u8a66\u7b97\u8868\u7684\u6307\u4ee4
+  (function(){
+    var K=document.getElementById('sheetKey'), U=document.getElementById('sheetUrl'), O=document.getElementById('sheetOut');
+    if(!K||!U||!O){return;}
+    var KD='C:\\AI-Workspace\\Claude\\Project\\Credential\\\u4f60\u7684\u91d1\u9470\u6a94.json';
+    var UD='https://docs.google.com/spreadsheets/d/\u4f60\u7684\u8a66\u7b97\u8868ID/edit';
+    function build(){
+      var k=(K.value||'').trim()||KD, u=(U.value||'').trim()||UD;
+      O.textContent='C:\\AI-Workspace\\Claude\\Project\\005-Demo\n'+
+        '\u8acb\u628a\u9019\u500b\u98f2\u6599\u5e97\u8a02\u8cfc\u7db2\u9801\u7684\u8a02\u55ae\uff0c\u540c\u6b65\u5beb\u9032\u6211\u7684 Google \u8a66\u7b97\u8868\u3002\n\n'+
+        '\u91d1\u9470\uff08GCP \u670d\u52d9\u5e33\u6236 JSON\uff09\u653e\u5728\uff1a'+k+'\n'+
+        '\u6211\u7684 Google \u8a66\u7b97\u8868\u7db2\u5740\uff1a'+u+'\n\n'+
+        '\u8acb\u5beb\u9032\u5206\u9801\u300cOrders\u300d\uff0c\u6b04\u4f4d\u4f9d\u5e8f\u662f\uff1a\u6642\u9593\u3001\u59d3\u540d\u3001\u54c1\u9805ID\u3001\u54c1\u9805\u540d\u7a31\u3001\u6578\u91cf\u3002\n'+
+        '\u4f7f\u7528\u8005\u6309\u4e0b\u9001\u51fa\u8a02\u55ae\u7684\u6642\u5019\uff0c\u5c31\u628a\u9019\u4e00\u7b46\u5beb\u9032\u53bb\u3002';
+    }
+    K.oninput=build; U.oninput=build; build();
+  })();
 
   $('again').onclick=function(){showingPrep=false;showingCase='';cur=N-1;render();window.scrollTo(0,0);};
   $('prepNext').onclick=function(){showingPrep=false;cur=0;render();window.scrollTo(0,0);};
