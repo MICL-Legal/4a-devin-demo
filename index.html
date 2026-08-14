@@ -72,6 +72,8 @@
   .imgbox .top .t{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#b9a986;font-weight:700}
   .imgbox .top .btns{display:flex;gap:.5rem}
   .imgbox .top .btns .copy{font-family:inherit;font-size:.8rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:7px;padding:.35rem .8rem;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+  a.dlfile{font-family:inherit;font-size:.86rem;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:9px;padding:.55rem 1rem;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+  video.vidbox{display:block;width:100%;border-radius:12px;border:2px solid var(--accent);margin:.5rem 0 1rem;background:#000}
   .imgbox img{display:block;width:100%;height:auto}
 
   .ok{display:flex;gap:.5rem;align-items:flex-start;background:var(--good-bg);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin:.2rem 0 1.2rem}
@@ -114,13 +116,13 @@
         <div class="stepno">事前準備</div>
         <h2>建立專案資料夾</h2>
         <p class="sub">所有例子共用，只做一次</p>
-        <div class="why">AI 要幫你動手，得先知道<b>去哪動手</b>。全班用同一個路徑，卡住的時候講師一眼就知道問題在哪。跟後面每一個例子一樣——<b>一句話交給 Claude Code，讓它自己在終端機把資料夾建好</b>，不用自己點滑鼠一格一格新增。</div>
+        <div class="why">AI 要幫你動手，得先知道<b>去哪動手</b>。<b>一句話交給 Claude Code，讓它自己在終端機把資料夾建好</b>，不用自己點滑鼠一格一格新增。</div>
         <p class="hand">① 先讓 Claude Code 跑起來（跟上面「開始前」一樣）：按 <kbd>Win</kbd> 鍵 → 輸入 <b>powershell</b> → <kbd>Enter</kbd> → 打 <code>claude</code> 進到對話畫面。</p>
         <p class="hand">② 把整段複製，貼給 Claude Code：</p>
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>請在 C:\AI-Workspace\Claude\Project 底下建立六個資料夾：001-Quote、002-MPT、003-Report、004-Expo、005-Demo、Credential</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>Claude Code 自己在終端機跑建立資料夾的指令，跑完會告訴你完成了——<b>不用自己點滑鼠新增</b>。</span></div>
-        <p class="hand">③ <b>確認建對了</b>：按 <kbd>Win</kbd> + <kbd>R</kbd>，貼上這一整行按 <kbd>Enter</kbd>：</p>
-        <div class="cmd"><div class="top"><span class="t">確認用 · 貼進「執行」小視窗</span><button class="copy">複製</button></div><pre>C:\AI-Workspace\Claude\Project</pre></div>
+        <p class="hand">③ <b>確認建對了</b>：打開檔案總管（我的電腦），把這個路徑貼進網址列確認：</p>
+        <div class="cmd"><div class="top"><span class="t">確認用 · 貼進檔案總管網址列</span><button class="copy">複製</button></div><pre>C:\AI-Workspace\Claude\Project</pre></div>
         <div class="ok"><span class="c">✓ 這一步成功長這樣</span><span>視窗打開後<b>看得到六個資料夾</b>，編號跟左側例子編號對齊，做哪一個例子就進哪一個：</span></div>
         <div class="tree">C:\AI-Workspace\Claude\Project\
   001-Quote\   ← 業務報價系統（例子 1）
@@ -156,20 +158,40 @@
 拉一個
 操作介面 可以輸入 數量</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>瀏覽器跑出一個報價畫面，<b>輸入數量就自動算出金額</b>（含運費、稅金）＝ 成功。</span></div>
-        <div class="note"><span class="c">💡 換成你的</span><span>把「隔離衣等級4」改成<b>你自己部門的產品</b>，其他照抄——這就是你今天帶回去的第一塊。</span></div>
+
+        <p class="do">加碼一句：想要運費依配送方式試算？接著把這句貼給 Claude Code：</p>
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>運費我還要一個下拉選單，可以選快遞或海運，兩種運費金額不一樣，選了之後總金額要跟著重新算</pre></div>
+        <div class="ok"><span class="c">✓ 成功長這樣</span><span>報價畫面多一個<b>快遞／海運下拉選單</b>，切換選項總金額會<b>跟著重新計算</b>＝ 成功。</span></div>
+
+        <div class="note"><span class="c">💡 換成你的</span><span>不是每個部門都有「產品」可以換——先想一想：<b>換成你自己的工作，你要算的是什麼？需要哪些數據</b>（單價、次數、天數、人力……）？<b>這些數據現在放在哪裡</b>（Excel、系統、紙本）？盤點清楚了，就能套進一樣的句型。</span></div>
+
+        <details class="ex"><summary>📎 範例檔（含運送方式下拉選單的完整版，點開看）</summary><div class="exb">
+          照著上面兩句一路做下去，長出來的完整版本長這樣——可以複製圖片給 Claude Code 當畫面規格，或直接下載 HTML 檔案回去研究：
+          <div class="imgbox">
+            <div class="top"><span class="t">參考畫面 · 業務報價系統（含運送方式）</span><span class="btns"><button class="copy imgcopybtn">複製圖片</button><a class="copy" href="assets/001-quote-reference.jpg" download="業務報價系統-範例.jpg">下載圖片</a></span></div>
+            <img src="assets/001-quote-reference.jpg" alt="業務報價系統範例畫面，含快遞／海運運送方式下拉選單">
+          </div>
+          <p class="hand"><a class="dlfile" href="assets/001-quote-reference.html" download="業務報價系統-範例.html">⬇ 下載範例 HTML 檔案</a></p>
+        </div></details>
       </section>
 
       <section class="panel case" data-t="一句話影片機" data-d="借 GitHub 上別人做好的，下載跑起來">
         <div class="stepno">例子 2　·　共 5 個</div>
         <h2>一句話影片機</h2>
         <p class="sub">MoneyPrinterTurbo · 站在巨人肩膀上</p>
-        <div class="why">你<b>不用自己寫程式</b>——GitHub 上已經有人做好一台「影片機」。你只要跟 Claude 說「下載到哪、幫我跑起來」，它把環境裝好、網頁打開。這就是<b>借力</b>：借別人做好的成品（Billy 場會深講怎麼找、怎麼確認不是釣魚坑）。完整手把手在 <b>2-4</b>。</div>
+        <div class="why">你<b>不用自己寫程式</b>——GitHub 上已經有人做好一台「影片機」。你只要跟 Claude 說「下載到哪、幫我跑起來」，它把環境裝好、網頁打開。這就是<b>借力</b>：借別人做好的成品。</div>
         <div class="note"><span class="c">📁 資料夾</span><span>這句話裡的 <code>002-MPT</code> 是一個要先存在的資料夾——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
         <p class="do">把整段複製，貼給 Claude Code：</p>
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>https://github.com/harry0703/MoneyPrinterTurbo下載到
 電腦路徑C:\AI-Workspace\Claude\Project\002-MPT  網頁開啟</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>它自己把專案抓下來、裝好環境，最後<b>瀏覽器開出影片機的操作網頁</b>＝ 成功。</span></div>
         <div class="note"><span class="c">⏳ 要等</span><span>這支要下載的東西比較多，<b>跑幾分鐘是正常的</b>——畫面一直跳字就是還在做，不要關掉。</span></div>
+
+        <details class="ex"><summary>📎 範例檔（自己輸入主題，跑出來的成品長這樣，點開看）</summary><div class="exb">
+          網頁打開後，在「視頻主題」那格打你要的內容，按生成——跑完的影片長這樣：
+          <video class="vidbox" src="assets/002-mpt-sample.mp4" controls preload="metadata"></video>
+          <p class="hand"><a class="dlfile" href="assets/002-mpt-sample.mp4" download="一句話影片機-範例.mp4">⬇ 下載範例影片</a></p>
+        </div></details>
       </section>
 
       <section class="panel case" data-t="報表整合系統" data-d="先複製一張圖，第一次貼上就是它">
@@ -180,13 +202,29 @@
         <div class="note"><span class="c">📁 資料夾</span><span>這個例子的資料夾是 <code>003-Report</code>——<b>在左側「0　建立專案資料夾」會一次建好</b>，建過就不用再建。</span></div>
         <p class="do">① 先取得這張圖——「複製圖片」可以直接貼進 Claude Code；如果複製沒反應，改按「下載圖片」存成檔案，再拖進 Claude Code：</p>
         <div class="imgbox">
-          <div class="top"><span class="t">參考畫面 · 記帳表單</span><span class="btns"><button class="copy" id="imgCopyBtn">複製圖片</button><a class="copy" href="assets/003-finance-hub-reference.png" download="finance-hub-reference.png">下載圖片</a></span></div>
-          <img src="assets/003-finance-hub-reference.png" alt="Finance Hub System 記帳表單參考畫面" id="refImg">
+          <div class="top"><span class="t">參考畫面 · 記帳表單</span><span class="btns"><button class="copy imgcopybtn">複製圖片</button><a class="copy" href="assets/003-finance-hub-reference.png" download="finance-hub-reference.png">下載圖片</a></span></div>
+          <img src="assets/003-finance-hub-reference.png" alt="Finance Hub System 記帳表單參考畫面">
         </div>
         <p class="do">② 打開 Claude Code，<b>先貼上這張圖（Ctrl+V）</b>，再把這句話一起送出：</p>
         <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>C:\AI-Workspace\Claude\Project\003-Report 幫我做一個長得像這張圖的記帳系統，欄位、分區、排版都照圖片，資料先用假的，不用接資料庫</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>Claude Code 照圖把<b>基本資訊／銀行帳號資訊／金額資訊／其他資訊</b>幾個分區跟裡面的欄位都做出來，長得跟截圖是同一套系統＝ 成功。</span></div>
-        <div class="note"><span class="c">💡 換成你的</span><span>把截圖換成<b>你自己部門真的在用的表單畫面</b>，句型不用改——這是比打字描述更快的第一步。</span></div>
+
+        <p class="do">③ 使用者第二次追加：圖片只看得出欄位長什麼樣，看不出下拉選單裡面有哪些選項——這時候把選項依序打字告訴它：</p>
+        <div class="cmd"><div class="top"><span class="t">現場用的那一句話</span><button class="copy">複製整段</button></div><pre>公司別的下拉選單，選項依序是 A、B、C、D
+幣別依序是 TWD、USD、EUR、SGD、GBP、SEK、HKD、CHF、JPY、CNY
+款項性質依序是 應收付貨款(費用)、銀行本金、銀行利息、手續費支出(含匯款手續費)、薪資、押標金(履保金)、資本支出(固定資產)、結售(結購)、集團資金調撥、其他</pre></div>
+        <div class="ok"><span class="c">✓ 成功長這樣</span><span>三個下拉選單都<b>照順序長出對應選項</b>，可以點開選了＝ 成功。</span></div>
+
+        <div class="note"><span class="c">💡 換成你的</span><span>截圖<b>不用是自己部門的畫面</b>——在外面看到覺得好用的服務也可以先截圖起來，再補上<b>自己的資料、情境、要做的事</b>，讓 AI 拿這張圖當基礎，一步步打磨成<b>你真正要的產品</b>。</span></div>
+
+        <details class="ex"><summary>📎 範例檔（照上面三句一路做下去的完整版，點開看）</summary><div class="exb">
+          長出來的完整版本長這樣——欄位都能打字、下拉選單都能選，按「提交記帳資料」會跳出送出成功的畫面：
+          <div class="imgbox">
+            <div class="top"><span class="t">範例成品 · 報表整合系統</span><span class="btns"><button class="copy imgcopybtn">複製圖片</button><a class="copy" href="assets/003-report-reference.jpg" download="報表整合系統-範例.jpg">下載圖片</a></span></div>
+            <img src="assets/003-report-reference.jpg" alt="報表整合系統範例畫面，記帳表單含基本資訊、銀行帳號資訊、金額資訊、其他資訊四區">
+          </div>
+          <p class="hand"><a class="dlfile" href="assets/003-report-reference.html" download="報表整合系統-範例.html" target="_blank">⬇ 下載／開啟範例 HTML 檔案</a></p>
+        </div></details>
       </section>
 
       <section class="panel case" data-t="會展掃描系統" data-d="拍名片一句話生成，手機畫面 Demo">
@@ -218,6 +256,15 @@
 資料先用假的，不用接資料庫。</pre></div>
         <div class="ok"><span class="c">✓ 成功長這樣</span><span>手機畫面看得到<b>拍名片／手動填／記訂單</b>三顆大按鈕，走完拍照 → 表單 → 送出，最後跳出<b>「已儲存 ✓」</b>＝ 成功。</span></div>
         <div class="note"><span class="c">💡 換成你的</span><span>這一版<b>只做畫面、資料是假的</b>，先確認流程跟風格對不對；接真的資料庫是下一步。</span></div>
+
+        <details class="ex"><summary>📎 範例檔（照上面那句一路做下去的完整版，點開看）</summary><div class="exb">
+          長出來的完整版本長這樣——首頁三顆大按鈕，走一輪拍名片 → 表單 → 已儲存的流程：
+          <div class="imgbox">
+            <div class="top"><span class="t">範例成品 · 會展掃描系統</span><span class="btns"><button class="copy imgcopybtn">複製圖片</button><a class="copy" href="assets/004-expo-reference.jpg" download="會展掃描系統-範例.jpg">下載圖片</a></span></div>
+            <img src="assets/004-expo-reference.jpg" alt="會展掃描系統範例畫面，手機介面含拍名片、手動填、記訂單三個入口">
+          </div>
+          <p class="hand"><a class="dlfile" href="card-scanner-app.html" download="會展掃描系統-範例.html" target="_blank">⬇ 下載／開啟範例 HTML 檔案</a></p>
+        </div></details>
       </section>
 
       <section class="panel case" data-t="飲料店訂購網頁" data-d="全員動手：進資料夾 → 一句話">
@@ -364,10 +411,9 @@
       doCopy(chip.querySelector('span'),chip.getAttribute('data-copy'),chip.querySelector('b'));
     };
   });
-  var imgCopyBtn=document.getElementById('imgCopyBtn');
-  if(imgCopyBtn){
+  [].forEach.call(document.querySelectorAll('.imgcopybtn'),function(imgCopyBtn){
     imgCopyBtn.onclick=function(){
-      var img=document.getElementById('refImg');
+      var img=imgCopyBtn.closest('.imgbox').querySelector('img');
       function fail(){flash(imgCopyBtn,'請在圖片上按右鍵→複製圖片',3000);}
       try{
         var canvas=document.createElement('canvas');
@@ -381,7 +427,7 @@
         },'image/png');
       }catch(e){fail();}
     };
-  }
+  });
 
   $('again').onclick=function(){showingPrep=false;cur=N-1;render();window.scrollTo(0,0);};
   $('prepNext').onclick=function(){showingPrep=false;cur=0;render();window.scrollTo(0,0);};

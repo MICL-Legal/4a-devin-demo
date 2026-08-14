@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>報表整合系統｜記帳系統 Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+  :root {
+    --bg: #EEF2F6;
+    --bg-accent-1: #E4ECFB;
+    --bg-accent-2: #EAF6F0;
+    --surface: #FFFFFF;
+    --surface-2: #F5F7FA;
+    --text: #16212B;
+    --text-muted: #64748B;
+    --text-faint: #94A3B8;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --accent: #2563EB;
+    --accent-strong: #1D4ED8;
+    --accent-soft: #EAF0FE;
+    --success: #16A34A;
+    --success-strong: #15803D;
+    --success-soft: #E9F9EF;
+    --danger: #DC2626;
+    --danger-soft: #FDECEC;
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px -12px rgba(16, 24, 40, 0.10);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(1100px 420px at 12% -10%, var(--bg-accent-1), transparent 60%),
+      radial-gradient(900px 420px at 100% 0%, var(--bg-accent-2), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    padding: 36px 20px 80px;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* ---------- header ---------- */
+  .masthead {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-mark {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), #7C3AED);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .masthead-title {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+  }
+  .masthead-sub {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+  .masthead-right {
+    text-align: right;
+  }
+  .masthead-right .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border: 1px solid #C7D7FB;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+  .masthead-right .badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .masthead-clock {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .masthead-clock .date { font-weight: 700; color: var(--text); }
+
+  /* ---------- section heading ---------- */
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 4px 0 16px 4px;
+  }
+
+  /* ---------- form cards ---------- */
+  form { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 26px 28px 22px;
+    margin-bottom: 20px;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .card-head .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .card-head h2 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 22px;
+  }
+  .field-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 780px) {
+    .field-grid, .field-grid.cols-2 { grid-template-columns: 1fr; }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .field.span-2 { grid-row: span 2; }
+
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .field label .req { color: var(--danger); font-weight: 700; }
+  .field label .hint {
+    font-weight: 400;
+    color: var(--text-faint);
+    font-size: 11.5px;
+  }
+
+  .field input[type="text"],
+  .field input[type="number"],
+  .field input[type="date"],
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14.5px;
+    padding: 11px 13px;
+    height: 44px;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  }
+  .field textarea {
+    height: auto;
+    min-height: 106px;
+    resize: vertical;
+    line-height: 1.55;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--text-faint);
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .field select:disabled,
+  .field input:disabled {
+    background: var(--surface-2);
+    color: var(--text-faint);
+    cursor: not-allowed;
+  }
+
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 11px;
+    pointer-events: none;
+  }
+  .select-wrap select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .field.invalid input,
+  .field.invalid select,
+  .field.invalid textarea {
+    border-color: var(--danger);
+    background: var(--danger-soft);
+  }
+  .field-error {
+    display: none;
+    font-size: 11.5px;
+    color: var(--danger);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+  .field.invalid .field-error { display: block; }
+
+  .amount-note {
+    font-size: 11.5px;
+    color: var(--text-faint);
+    font-weight: 400;
+  }
+
+  /* ---------- actions ---------- */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    flex: 1;
+    height: 52px;
+    background: linear-gradient(135deg, var(--success), var(--success-strong));
+    color: #fff;
+    box-shadow: 0 10px 24px -10px rgba(22, 163, 74, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { box-shadow: 0 12px 28px -8px rgba(22, 163, 74, 0.6); }
+  .btn-primary.is-sent {
+    background: linear-gradient(135deg, #15803D, #14532D);
+  }
+  .btn-primary:disabled { cursor: default; opacity: 0.92; }
+
+  .btn-secondary {
+    height: 52px;
+    padding: 0 22px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+  }
+  .btn-secondary:hover { background: var(--surface-2); }
+
+  /* ---------- result / receipt card ---------- */
+  .receipt {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: max-height 0.35s ease, opacity 0.3s ease, transform 0.3s ease, margin 0.35s ease;
+    margin-top: 0;
+  }
+  .receipt.show {
+    max-height: 900px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 20px;
+  }
+  .receipt-inner {
+    background: var(--success-soft);
+    border: 1px solid #BCE8CC;
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+  }
+  .receipt-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .receipt-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--success);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .receipt-head h3 {
+    margin: 0;
+    font-size: 15.5px;
+    font-weight: 800;
+    color: var(--success-strong);
+  }
+  .receipt-sub {
+    font-size: 12px;
+    color: #3F7A52;
+    margin: 2px 0 16px 36px;
+  }
+  .receipt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px 24px;
+  }
+  @media (max-width: 780px) {
+    .receipt-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .receipt-item .k {
+    font-size: 11px;
+    color: #3F7A52;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .receipt-item .v {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    word-break: break-word;
+  }
+  .receipt-item .v.empty { color: var(--text-faint); font-weight: 500; }
+
+  /* ---------- toast ---------- */
+  .toast-wrap {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+  .toast {
+    pointer-events: auto;
+    background: var(--text);
+    color: #fff;
+    padding: 13px 18px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    box-shadow: 0 12px 28px -8px rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    max-width: 340px;
+  }
+  .toast.success { background: var(--success-strong); }
+  .toast.error { background: var(--danger); }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    margin-top: 28px;
+  }
+</style>
+</head>
+<body>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="brand-mark">RS</div>
+      <div>
+        <div class="masthead-title">報表整合系統</div>
+        <div class="masthead-sub">內部記帳作業入口・工作坊示範資料，非正式系統</div>
+      </div>
+    </div>
+    <div class="masthead-right">
+      <div class="badge">前端示範・無後端連線</div>
+      <div class="masthead-clock"><span class="date" id="clockDate">--</span> <span id="clockTime">--:--:--</span></div>
+    </div>
+  </header>
+
+  <div class="section-title">新增記帳項目</div>
+
+  <form id="ledgerForm" novalidate>
+
+    <!-- 基本資訊 -->
+    <section class="card">
+      <div class="card-head"><span class="dot"></span><h2>基本資訊</h2></div>
+      <div class="field-grid">
+        <div class="field" id="f-date">
+          <label for="date">日期 <span class="req">*</span></label>
+          <input type="date" id="date" name="date" required>
+          <div class="field-error">請選擇日期</div>
+        </div>
+
+        <div class="field" id="f-company">
+          <label for="company">公司別 <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="company" name="company" required>
+              <option value="" selected disabled>請選擇公司</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </div>
+          <div class="field-error">請選擇公司別</div>
+        </div>
+
+        <div class="field span-2" id="f-content">
+          <label for="content">款項內容 <span class="req">*</span></label>
+          <textarea id="content" name="content" placeholder="請輸入款項內容說明" required></textarea>
+          <div class="field-error">請輸入款項內容說明</div>
+        </div>
+
+        <div class="field" id="f-payee">
+          <label for="payee">受款人 <span class="req">*</span></label>
+          <input type="text" id="payee" name="payee" placeholder="請輸入受款人" required>
+          <div class="field-error">請輸入受款人</div>
+        </div>
+
+        <div class="field" id="f-currency">
+          <label for="currency">幣別 <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="currency" name="currency" required>
+              <option value="" selected disabled>請選擇幣別</option>
+              <option value="TWD">TWD - 新台幣</option>
+              <option value="USD">USD - 美元</option>
+              <option value="EUR">EUR - 歐元</option>
+              <option value="SGD">SGD - 新加坡幣</option>
+              <option value="GBP">GBP - 英鎊</option>
+              <option value="SEK">SEK - 瑞典克朗</option>
+              <option value="HKD">HKD - 港幣</option>
+              <option value="CHF">CHF - 瑞士法郎</option>
+              <option value="JPY">JPY - 日圓</option>
+              <option value="CNY">CNY - 人民幣</option>
+            </select>
+          </div>
+          <div class="field-error">請選擇幣別</div>
+        </div>
+
+        <div class="field" id="f-nature">
+          <label for="nature">款項性質 <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="nature" name="nature" required>
+              <option value="" selected disabled>請選擇款項性質</option>
+              <option value="應收付貨款(費用)">應收付貨款(費用)</option>
+              <option value="銀行本金">銀行本金</option>
+              <option value="銀行利息">銀行利息</option>
+              <option value="手續費支出(含匯款手續費)">手續費支出(含匯款手續費)</option>
+              <option value="薪資">薪資</option>
+              <option value="押標金(履保金)">押標金(履保金)</option>
+              <option value="資本支出(固定資產)">資本支出(固定資產)</option>
+              <option value="結售(結購)">結售(結購)</option>
+              <option value="集團資金調撥">集團資金調撥</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+          <div class="field-error">請選擇款項性質</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 銀行帳號資訊 -->
+    <section class="card">
+      <div class="card-head"><span class="dot"></span><h2>銀行帳號資訊</h2></div>
+      <div class="field-grid cols-2">
+        <div class="field" id="f-bank">
+          <label for="bank">銀行 <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="bank" name="bank" required>
+              <option value="" selected disabled>請選擇銀行</option>
+              <option value="甲銀行">甲銀行</option>
+              <option value="乙銀行">乙銀行</option>
+              <option value="丙銀行">丙銀行</option>
+              <option value="丁銀行">丁銀行</option>
+            </select>
+          </div>
+          <div class="field-error">請選擇銀行</div>
+        </div>
+
+        <div class="field" id="f-account">
+          <label for="account">帳號 <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select id="account" name="account" required disabled>
+              <option value="" selected>請先選擇銀行</option>
+            </select>
+          </div>
+          <div class="field-error">請選擇帳號</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 金額資訊 -->
+    <section class="card">
+      <div class="card-head"><span class="dot"></span><h2>金額資訊</h2></div>
+      <div class="field-grid cols-2">
+        <div class="field" id="f-incomeAmount">
+          <label for="incomeAmount">收入金額 <span class="amount-note">(與付款金額擇一填寫)</span></label>
+          <input type="number" id="incomeAmount" name="incomeAmount" placeholder="請輸入金額" inputmode="decimal" min="0" step="0.01">
+          <div class="field-error">請輸入收入金額或付款金額（擇一）</div>
+        </div>
+
+        <div class="field" id="f-paymentAmount">
+          <label for="paymentAmount">付款金額 <span class="amount-note">(與收入金額擇一填寫)</span></label>
+          <input type="number" id="paymentAmount" name="paymentAmount" placeholder="請輸入金額" inputmode="decimal" min="0" step="0.01">
+          <div class="field-error">請輸入收入金額或付款金額（擇一）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 其他資訊 -->
+    <section class="card">
+      <div class="card-head"><span class="dot"></span><h2>其他資訊</h2></div>
+      <div class="field-grid">
+        <div class="field" id="f-voucher">
+          <label for="voucher">傳票編號 <span class="req">*</span></label>
+          <input type="text" id="voucher" name="voucher" placeholder="請輸入傳票編號" required>
+          <div class="field-error">請輸入傳票編號</div>
+        </div>
+
+        <div class="field" id="f-ticket">
+          <label for="ticket">票號 <span class="req">*</span></label>
+          <input type="text" id="ticket" name="ticket" placeholder="請輸入票號" required>
+          <div class="field-error">請輸入票號</div>
+        </div>
+
+        <div class="field" id="f-cashDate">
+          <label for="cashDate">兌現日 <span class="req">*</span></label>
+          <input type="date" id="cashDate" name="cashDate" required>
+          <div class="field-error">請選擇兌現日</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary" id="submitBtn">
+        <span id="submitBtnLabel">提交記帳資料</span>
+      </button>
+      <button type="button" class="btn btn-secondary" id="resetBtn">重置表單</button>
+    </div>
+
+    <div class="receipt" id="receipt">
+      <div class="receipt-inner">
+        <div class="receipt-head">
+          <div class="receipt-check">✓</div>
+          <h3>已送出 ✓ 記帳資料已成功建立</h3>
+        </div>
+        <div class="receipt-sub">示範用結果，資料僅保存在本頁瀏覽器記憶體中，未傳送至任何伺服器。</div>
+        <div class="receipt-grid" id="receiptGrid"></div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="footer-note">本頁為工作坊示範用「記帳系統」前端介面・所有欄位資料均為輸入即時顯示，未連接任何後端或資料庫</div>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- live clock ---------- */
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function tickClock() {
+    var now = new Date();
+    $("clockDate").textContent = now.getFullYear() + "/" + pad(now.getMonth() + 1) + "/" + pad(now.getDate());
+    $("clockTime").textContent = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  /* ---------- default date values ---------- */
+  function todayISO() {
+    var now = new Date();
+    return now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+  }
+  var dateEl = $("date");
+  dateEl.value = todayISO();
+  var defaultDateValue = dateEl.value;
+
+  /* ---------- bank -> account dependent select ---------- */
+  var ACCOUNTS_BY_BANK = {
+    "甲銀行": [
+      { value: "001-1234567890", label: "001-1234567890（活期存款）" },
+      { value: "001-9988776655", label: "001-9988776655（支票存款）" }
+    ],
+    "乙銀行": [
+      { value: "002-2233445566", label: "002-2233445566（活期存款）" },
+      { value: "002-6655443322", label: "002-6655443322（外幣帳戶）" }
+    ],
+    "丙銀行": [
+      { value: "003-3344556677", label: "003-3344556677（活期存款）" }
+    ],
+    "丁銀行": [
+      { value: "004-4455667788", label: "004-4455667788（活期存款）" },
+      { value: "004-8877665544", label: "004-8877665544（支票存款）" }
+    ]
+  };
+
+  var bankEl = $("bank");
+  var accountEl = $("account");
+
+  function resetAccountSelect(message) {
+    accountEl.innerHTML = "";
+    var opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = message;
+    opt.selected = true;
+    accountEl.appendChild(opt);
+    accountEl.disabled = true;
+  }
+
+  bankEl.addEventListener("change", function () {
+    var accounts = ACCOUNTS_BY_BANK[bankEl.value];
+    if (!accounts) {
+      resetAccountSelect("請先選擇銀行");
+      return;
+    }
+    accountEl.innerHTML = "";
+    var placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = "請選擇帳號";
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    accountEl.appendChild(placeholder);
+    accounts.forEach(function (a) {
+      var opt = document.createElement("option");
+      opt.value = a.value;
+      opt.textContent = a.label;
+      accountEl.appendChild(opt);
+    });
+    accountEl.disabled = false;
+    clearFieldError("f-account");
+  });
+
+  /* ---------- validation ---------- */
+  var REQUIRED_FIELDS = [
+    "date", "company", "content", "payee", "currency", "nature",
+    "bank", "account", "voucher", "ticket", "cashDate"
+  ];
+
+  function fieldWrap(id) { return $("f-" + id); }
+
+  function markInvalid(id) {
+    var wrap = fieldWrap(id);
+    if (wrap) wrap.classList.add("invalid");
+  }
+  function clearFieldError(wrapId) {
+    var wrap = $(wrapId);
+    if (wrap) wrap.classList.remove("invalid");
+  }
+  function clearAllErrors() {
+    document.querySelectorAll(".field.invalid").forEach(function (el) {
+      el.classList.remove("invalid");
+    });
+  }
+
+  function isEmpty(v) { return v === undefined || v === null || String(v).trim() === ""; }
+
+  function validateForm() {
+    clearAllErrors();
+    var firstInvalid = null;
+    var valid = true;
+
+    REQUIRED_FIELDS.forEach(function (id) {
+      var el = $(id);
+      if (isEmpty(el.value)) {
+        valid = false;
+        markInvalid(id);
+        if (!firstInvalid) firstInvalid = el;
+      }
+    });
+
+    var incomeEl = $("incomeAmount");
+    var paymentEl = $("paymentAmount");
+    var hasIncome = !isEmpty(incomeEl.value) && parseFloat(incomeEl.value) > 0;
+    var hasPayment = !isEmpty(paymentEl.value) && parseFloat(paymentEl.value) > 0;
+
+    if (!hasIncome && !hasPayment) {
+      valid = false;
+      markInvalid("incomeAmount");
+      markInvalid("paymentAmount");
+      if (!firstInvalid) firstInvalid = incomeEl;
+    } else if (hasIncome && hasPayment) {
+      valid = false;
+      markInvalid("incomeAmount");
+      markInvalid("paymentAmount");
+      fieldWrap("incomeAmount").querySelector(".field-error").textContent = "收入金額與付款金額請擇一填寫，不可同時填寫";
+      fieldWrap("paymentAmount").querySelector(".field-error").textContent = "收入金額與付款金額請擇一填寫，不可同時填寫";
+      if (!firstInvalid) firstInvalid = incomeEl;
+    } else {
+      fieldWrap("incomeAmount").querySelector(".field-error").textContent = "請輸入收入金額或付款金額（擇一）";
+      fieldWrap("paymentAmount").querySelector(".field-error").textContent = "請輸入收入金額或付款金額（擇一）";
+    }
+
+    return { valid: valid, firstInvalid: firstInvalid, hasIncome: hasIncome, hasPayment: hasPayment };
+  }
+
+  /* clear individual field error as user fixes it */
+  REQUIRED_FIELDS.concat(["incomeAmount", "paymentAmount"]).forEach(function (id) {
+    var el = $(id);
+    if (!el) return;
+    var evt = (el.tagName === "SELECT" || el.type === "date") ? "change" : "input";
+    el.addEventListener(evt, function () { clearFieldError("f-" + id); });
+  });
+
+  /* ---------- toast ---------- */
+  function showToast(message, type) {
+    var wrap = $("toastWrap");
+    var toast = document.createElement("div");
+    toast.className = "toast" + (type ? " " + type : "");
+    toast.textContent = message;
+    wrap.appendChild(toast);
+    requestAnimationFrame(function () { toast.classList.add("show"); });
+    setTimeout(function () {
+      toast.classList.remove("show");
+      setTimeout(function () { toast.remove(); }, 300);
+    }, 3400);
+  }
+
+  /* ---------- formatting helpers ---------- */
+  var CURRENCY_LABELS = {
+    TWD: "TWD - 新台幣", USD: "USD - 美元", EUR: "EUR - 歐元", SGD: "SGD - 新加坡幣",
+    GBP: "GBP - 英鎊", SEK: "SEK - 瑞典克朗", HKD: "HKD - 港幣", CHF: "CHF - 瑞士法郎",
+    JPY: "JPY - 日圓", CNY: "CNY - 人民幣"
+  };
+
+  function fmtDate(iso) {
+    if (!iso) return "";
+    var parts = iso.split("-");
+    if (parts.length !== 3) return iso;
+    return parts[0] + "/" + parts[1] + "/" + parts[2];
+  }
+
+  function fmtAmount(v) {
+    var n = parseFloat(v);
+    if (isNaN(n)) return "";
+    return n.toLocaleString("zh-TW", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+
+  function receiptItem(label, value, opts) {
+    opts = opts || {};
+    var div = document.createElement("div");
+    div.className = "receipt-item" + (opts.wide ? "" : "");
+    var k = document.createElement("div");
+    k.className = "k";
+    k.textContent = label;
+    var v = document.createElement("div");
+    v.className = "v" + (isEmpty(value) ? " empty" : "");
+    v.textContent = isEmpty(value) ? "（未填寫）" : value;
+    div.appendChild(k);
+    div.appendChild(v);
+    return div;
+  }
+
+  /* ---------- submit ---------- */
+  var form = $("ledgerForm");
+  var submitBtn = $("submitBtn");
+  var submitBtnLabel = $("submitBtnLabel");
+  var receipt = $("receipt");
+  var receiptGrid = $("receiptGrid");
+  var resetTimer = null;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var result = validateForm();
+    if (!result.valid) {
+      showToast("請完整填寫必要欄位後再提交", "error");
+      if (result.firstInvalid) {
+        result.firstInvalid.focus();
+        result.firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
+    var currencyCode = $("currency").value;
+    var amountLabel = result.hasIncome ? "收入金額" : "付款金額";
+    var amountValue = result.hasIncome ? $("incomeAmount").value : $("paymentAmount").value;
+
+    receiptGrid.innerHTML = "";
+    var items = [
+      ["日期", fmtDate($("date").value)],
+      ["公司別", $("company").value],
+      ["受款人", $("payee").value],
+      ["幣別", CURRENCY_LABELS[currencyCode] || currencyCode],
+      ["款項性質", $("nature").value],
+      ["銀行", $("bank").value],
+      ["帳號", accountEl.options[accountEl.selectedIndex] ? accountEl.options[accountEl.selectedIndex].text : ""],
+      [amountLabel, (currencyCode || "") + " " + fmtAmount(amountValue)],
+      ["傳票編號", $("voucher").value],
+      ["票號", $("ticket").value],
+      ["兌現日", fmtDate($("cashDate").value)],
+      ["款項內容", $("content").value]
+    ];
+    items.forEach(function (pair) {
+      receiptGrid.appendChild(receiptItem(pair[0], pair[1]));
+    });
+
+    receipt.classList.add("show");
+    receipt.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add("is-sent");
+    submitBtnLabel.textContent = "已送出 ✓";
+    showToast("記帳資料已送出（示範資料，未寫入任何資料庫）", "success");
+
+    if (resetTimer) clearTimeout(resetTimer);
+    resetTimer = setTimeout(function () {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("is-sent");
+      submitBtnLabel.textContent = "提交記帳資料";
+    }, 2600);
+  });
+
+  /* ---------- reset ---------- */
+  $("resetBtn").addEventListener("click", function () {
+    form.reset();
+    clearAllErrors();
+    dateEl.value = defaultDateValue;
+    resetAccountSelect("請先選擇銀行");
+    receipt.classList.remove("show");
+    receiptGrid.innerHTML = "";
+    if (resetTimer) clearTimeout(resetTimer);
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("is-sent");
+    submitBtnLabel.textContent = "提交記帳資料";
+    showToast("表單已重置", null);
+  });
+
+})();
+</script>
+
+</body>
+</html>

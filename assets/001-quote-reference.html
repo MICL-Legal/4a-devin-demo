@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隔離衣 Level 4 報價系統</title>
+<style>
+  :root {
+    --bg: #F2F5F4;
+    --surface: #FFFFFF;
+    --surface-2: #E9EFEE;
+    --text: #17232B;
+    --text-muted: #5C6E72;
+    --border: #DCE6E4;
+    --border-strong: #C3D1CE;
+    --accent: #0E7C7B;
+    --accent-strong: #0A5F5E;
+    --accent-soft: #E4F3F1;
+    --danger: #C0392B;
+    --danger-soft: #FBEAE7;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    padding: 32px 20px 64px;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  header.masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .masthead-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .masthead-sub {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.85fr);
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .card-hint {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .product-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px;
+    background: var(--surface-2);
+    border-radius: 10px;
+    margin-bottom: 22px;
+  }
+  .product-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    background: var(--accent);
+    color: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    flex-shrink: 0;
+  }
+  .product-name {
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .product-spec {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+  .field:last-child { margin-bottom: 0; }
+
+  .field-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .field-label .unit {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .qty-control button {
+    width: 44px;
+    border: none;
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .qty-control button:hover { background: var(--accent-soft); color: var(--accent-strong); }
+  .qty-control button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .qty-control input {
+    flex: 1;
+    border: none;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    background: transparent;
+    color: var(--text);
+    min-width: 0;
+    padding: 0 8px;
+  }
+  .qty-control input:focus { outline: none; }
+
+  .input-prefixed {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .input-prefixed .prefix {
+    padding: 0 12px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-right: 1px solid var(--border);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background: var(--surface-2);
+    flex-shrink: 0;
+  }
+  .input-prefixed input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 12px;
+    height: 40px;
+    min-width: 0;
+  }
+  .input-prefixed input:focus { outline: none; }
+  .input-prefixed:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  .select-wrap {
+    position: relative;
+  }
+  .select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 12px;
+    pointer-events: none;
+  }
+  .select-wrap select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 0 40px 0 14px;
+    height: 44px;
+    cursor: pointer;
+  }
+  .select-wrap select:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .shipping-formula {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+
+  .radio-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .radio-chip {
+    position: relative;
+  }
+  .radio-chip input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+  .radio-chip label {
+    display: block;
+    padding: 8px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+  .radio-chip input:checked + label {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--surface);
+  }
+  .radio-chip input:focus-visible + label {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .shipping-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .shipping-note.hidden { display: none; }
+
+  /* --- summary / quote card --- */
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    position: sticky;
+    top: 24px;
+  }
+  .summary-head {
+    padding: 20px 24px;
+    border-bottom: 1px dashed var(--border-strong);
+  }
+  .summary-head .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .summary-head .value {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .summary-lines {
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13.5px;
+  }
+  .summary-line .k { color: var(--text-muted); }
+  .summary-line .v { font-weight: 600; }
+
+  .summary-divider {
+    border: none;
+    border-top: 1px dashed var(--border-strong);
+    margin: 4px 24px;
+  }
+
+  .summary-total {
+    background: var(--accent-soft);
+    padding: 20px 24px 24px;
+  }
+  .summary-total .k {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-strong);
+    margin-bottom: 6px;
+  }
+  .summary-total .v {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--accent-strong);
+    letter-spacing: -0.01em;
+  }
+  .summary-total .per-unit {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  .footnote {
+    padding: 14px 24px 20px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+
+  .warn-banner {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: var(--danger-soft);
+    color: var(--danger);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+  .warn-banner.show { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="masthead">
+    <div>
+      <div class="masthead-title">隔離衣報價系統</div>
+      <div class="masthead-sub">業務用即時報價工具・僅供內部試算，非正式報價單</div>
+    </div>
+    <span class="badge">CPE Level 4 防護等級</span>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <div class="card-title">品項設定</div>
+        <div class="card-hint">輸入數量與運費規則，右側即時試算報價</div>
+
+        <div class="product-row">
+          <div class="product-icon">🥼</div>
+          <div>
+            <div class="product-name">隔離衣 Level 4（防護等級四級）</div>
+            <div class="product-spec">AAMI Level 4・非滅菌・拋棄式・單件包裝</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">單價 <span class="unit">每件，未稅</span></div>
+          <div class="input-prefixed">
+            <span class="prefix">NT$</span>
+            <input id="unitPrice" type="number" inputmode="decimal" min="0" step="1" value="150" class="mono" />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">數量 <span class="unit">件</span></div>
+          <div class="qty-control">
+            <button type="button" id="qtyMinus" aria-label="減少數量">−</button>
+            <input id="qty" type="number" inputmode="numeric" min="1" step="1" value="500" class="mono" />
+            <button type="button" id="qtyPlus" aria-label="增加數量">+</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">運送方式</div>
+          <div class="select-wrap">
+            <select id="shipMethod">
+              <option value="express" selected>快遞（Courier）</option>
+              <option value="sea">海運（Sea Freight）</option>
+            </select>
+          </div>
+
+          <div class="field-label" style="margin-top:16px; margin-bottom: 8px;">
+            起運費 <span class="unit" id="baseFeeUnit">快遞掛號起價</span>
+          </div>
+          <div class="input-prefixed">
+            <span class="prefix">NT$</span>
+            <input id="shipBase" type="number" inputmode="decimal" min="0" step="1" value="300" class="mono" />
+          </div>
+
+          <div class="field-label" style="margin-top:14px; margin-bottom: 8px;">
+            每件加收 <span class="unit" id="perUnitFeeUnit">依重量／材積估算</span>
+          </div>
+          <div class="input-prefixed">
+            <span class="prefix">NT$</span>
+            <input id="shipPerUnit" type="number" inputmode="decimal" min="0" step="0.5" value="8" class="mono" />
+          </div>
+
+          <div class="field-label" style="margin-top:14px; margin-bottom: 8px;">
+            滿額免運門檻 <span class="unit">件（0 表示不設定）</span>
+          </div>
+          <div class="input-prefixed">
+            <span class="prefix">≥</span>
+            <input id="freeShipThreshold" type="number" inputmode="numeric" min="0" step="1" value="1000" class="mono" />
+          </div>
+
+          <div class="shipping-formula" id="shippingFormula">運費 = 起運費 NT$300 ＋ 每件 NT$8 × 數量</div>
+          <div class="shipping-note hidden" id="shippingNote">已達免運門檻，本次報價運費為 NT$0</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">稅率 <span class="unit">營業稅</span></div>
+          <div class="input-prefixed" style="max-width: 160px;">
+            <input id="taxRate" type="number" inputmode="decimal" min="0" step="0.1" value="5" class="mono" />
+            <span class="prefix" style="border-right:none; border-left:1px solid var(--border);">%</span>
+          </div>
+          <div class="radio-row" style="margin-top: 12px;">
+            <div class="radio-chip">
+              <input type="radio" name="taxMode" id="taxExclusive" value="exclusive" checked />
+              <label for="taxExclusive">未稅價外加稅金</label>
+            </div>
+            <div class="radio-chip">
+              <input type="radio" name="taxMode" id="taxInclusive" value="inclusive" />
+              <label for="taxInclusive">含稅價（反算稅金）</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn-banner" id="warnBanner">⚠ 請輸入大於 0 的數量與單價</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="summary-card">
+        <div class="summary-head">
+          <div class="label">報價品項</div>
+          <div class="value">隔離衣 Level 4 × <span id="sumQty" class="mono">500</span> 件</div>
+        </div>
+
+        <div class="summary-lines">
+          <div class="summary-line">
+            <span class="k">單價</span>
+            <span class="v mono" id="sumUnitPrice">NT$ 150</span>
+          </div>
+          <div class="summary-line">
+            <span class="k">小計（未稅）</span>
+            <span class="v mono" id="sumSubtotal">NT$ 75,000</span>
+          </div>
+          <div class="summary-line">
+            <span class="k">運費</span>
+            <span class="v mono" id="sumShipping">NT$ 800</span>
+          </div>
+          <div class="summary-line">
+            <span class="k">稅金 (<span id="sumTaxRate">5</span>%)</span>
+            <span class="v mono" id="sumTax">NT$ 3,790</span>
+          </div>
+        </div>
+
+        <hr class="summary-divider" />
+
+        <div class="summary-total">
+          <div class="k">總計</div>
+          <div class="v mono" id="sumTotal">NT$ 79,590</div>
+          <div class="per-unit">平均每件 <span id="sumPerUnit" class="mono">NT$ 159.2</span>（含運＋稅）</div>
+        </div>
+
+        <div class="footnote">試算結果四捨五入至整數，正式報價請以業務簽核之報價單為準。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => "NT$ " + Math.round(n).toLocaleString("zh-TW");
+
+  const unitPriceEl = $("unitPrice");
+  const qtyEl = $("qty");
+  const shipMethodEl = $("shipMethod");
+  const shipBaseEl = $("shipBase");
+  const shipPerUnitEl = $("shipPerUnit");
+  const freeShipEl = $("freeShipThreshold");
+  const taxRateEl = $("taxRate");
+
+  const SHIP_PRESETS = {
+    express: { base: 300, perUnit: 8, freeShip: 1000, baseUnit: "快遞掛號起價", perUnitUnit: "依重量／材積估算" },
+    sea: { base: 3000, perUnit: 2, freeShip: 0, baseUnit: "併櫃出口報關起價", perUnitUnit: "依材積估算，量大更划算" },
+  };
+
+  function applyShipPreset(method) {
+    const preset = SHIP_PRESETS[method];
+    shipBaseEl.value = preset.base;
+    shipPerUnitEl.value = preset.perUnit;
+    freeShipEl.value = preset.freeShip;
+    $("baseFeeUnit").textContent = preset.baseUnit;
+    $("perUnitFeeUnit").textContent = preset.perUnitUnit;
+  }
+
+  function clampQty(v) {
+    v = parseInt(v, 10);
+    if (isNaN(v) || v < 1) return 1;
+    return v;
+  }
+
+  function calculate() {
+    const unitPrice = Math.max(0, parseFloat(unitPriceEl.value) || 0);
+    const qty = Math.max(0, parseInt(qtyEl.value, 10) || 0);
+    const freeShipThreshold = Math.max(0, parseInt(freeShipEl.value, 10) || 0);
+    const shipBase = Math.max(0, parseFloat(shipBaseEl.value) || 0);
+    const shipPerUnit = Math.max(0, parseFloat(shipPerUnitEl.value) || 0);
+    const taxRate = Math.max(0, parseFloat(taxRateEl.value) || 0) / 100;
+    const taxMode = document.querySelector('input[name="taxMode"]:checked').value;
+
+    const subtotal = unitPrice * qty;
+
+    const shipping = shipBase + shipPerUnit * qty;
+    const freeShipActive = freeShipThreshold > 0 && qty >= freeShipThreshold;
+    const shippingCharged = freeShipActive ? 0 : shipping;
+
+    $("shippingFormula").textContent =
+      `運費 = 起運費 NT$${shipBase.toLocaleString("zh-TW")} ＋ 每件 NT$${shipPerUnit} × 數量`;
+
+    let tax, total, taxedBase;
+    if (taxMode === "exclusive") {
+      taxedBase = subtotal + shippingCharged;
+      tax = taxedBase * taxRate;
+      total = taxedBase + tax;
+    } else {
+      // inclusive: subtotal + shipping already includes tax, back it out
+      taxedBase = subtotal + shippingCharged;
+      total = taxedBase;
+      tax = taxedBase - (taxedBase / (1 + taxRate));
+    }
+
+    const perUnit = qty > 0 ? total / qty : 0;
+
+    $("shippingNote").classList.toggle("hidden", !freeShipActive);
+
+    const invalid = unitPrice <= 0 || qty <= 0;
+    $("warnBanner").classList.toggle("show", invalid);
+
+    $("sumQty").textContent = qty.toLocaleString("zh-TW");
+    $("sumUnitPrice").textContent = fmt(unitPrice);
+    $("sumSubtotal").textContent = fmt(subtotal);
+    $("sumShipping").textContent = shippingCharged === 0 && freeShipActive ? "NT$ 0（免運）" : fmt(shippingCharged);
+    $("sumTaxRate").textContent = (taxRate * 100).toString();
+    $("sumTax").textContent = fmt(tax);
+    $("sumTotal").textContent = fmt(total);
+    $("sumPerUnit").textContent = "NT$ " + perUnit.toFixed(1);
+  }
+
+  $("qtyMinus").addEventListener("click", () => {
+    qtyEl.value = Math.max(1, clampQty(qtyEl.value) - 1);
+    calculate();
+  });
+  $("qtyPlus").addEventListener("click", () => {
+    qtyEl.value = clampQty(qtyEl.value) + 1;
+    calculate();
+  });
+
+  shipMethodEl.addEventListener("change", () => {
+    applyShipPreset(shipMethodEl.value);
+    calculate();
+  });
+
+  [unitPriceEl, qtyEl, shipBaseEl, shipPerUnitEl, freeShipEl, taxRateEl].forEach((el) => {
+    el.addEventListener("input", calculate);
+  });
+  document.querySelectorAll('input[name="taxMode"]').forEach((el) => {
+    el.addEventListener("change", calculate);
+  });
+
+  calculate();
+</script>
+
+</body>
+</html>
