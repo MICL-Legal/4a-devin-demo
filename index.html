@@ -76,6 +76,7 @@
   video.vidbox{display:block;width:100%;border-radius:12px;border:2px solid var(--accent);margin:.5rem 0 1rem;background:#000}
   .imgbox img{display:block;width:100%;height:auto}
 
+  .raildiv{height:0;border-top:2px dashed var(--accent2);opacity:.75;margin:.75rem .3rem .35rem}
   .rstep.real .dot{background:var(--accent);border-color:var(--accent);color:#fff;font-size:.82rem}
   .rstep.real{border-color:var(--accent2)}
   .bigstat{background:var(--paste);border:2px solid var(--accent);border-radius:14px;padding:1.15rem 1rem;text-align:center;margin:.7rem 0 1.2rem}
@@ -366,7 +367,8 @@
                  '<span class="dot">0</span>'+
                  '<div class="rtx"><span class="rt">0\u3000\u5efa\u7acb\u5c08\u6848\u8cc7\u6599\u593e</span>'+
                  '<span class="rd">\u6240\u6709\u4f8b\u5b50\u5171\u7528\uff0c\u53ea\u505a\u4e00\u6b21</span></div></div>';
-    var realHtml='<div class="rstep real '+(showingReal?'cur':'')+'" data-real="1">'+
+    var realHtml='<div class="raildiv"></div>'+
+                 '<div class="rstep real '+(showingReal?'cur':'')+'" data-real="1">'+
                  '<span class="dot">\u2605</span>'+
                  '<div class="rtx"><span class="rt">\u771f\u5be6\u6848\u4f8b\u3000\u696d\u52d9\u90e8 Ellie</span>'+
                  '<span class="rd">26 \u5929\uff0c\u5f9e\u4e00\u53e5\u8a71\u5230\u516c\u53f8\u5728\u7528\u7684\u7cfb\u7d71</span></div></div>';
