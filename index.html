@@ -76,6 +76,16 @@
   video.vidbox{display:block;width:100%;border-radius:12px;border:2px solid var(--accent);margin:.5rem 0 1rem;background:#000}
   .imgbox img{display:block;width:100%;height:auto}
 
+  .rstep.real .dot{background:var(--accent);border-color:var(--accent);color:#fff;font-size:.82rem}
+  .rstep.real{border-color:var(--accent2)}
+  .bigstat{background:var(--paste);border:2px solid var(--accent);border-radius:14px;padding:1.15rem 1rem;text-align:center;margin:.7rem 0 1.2rem}
+  .bigstat .n{font-family:var(--serif);font-size:clamp(1.4rem,4vw,1.9rem);color:var(--accent2);display:block;line-height:1.3}
+  .bigstat .t{font-size:.88rem;color:#c3b499;display:block;margin-top:.3rem}
+  .cta{background:var(--accent);color:#fff;border-radius:14px;padding:1.2rem 1.1rem;text-align:center;margin:.6rem 0 1.2rem}
+  .cta .big{font-family:var(--serif);font-size:clamp(1.15rem,3.5vw,1.4rem);margin-bottom:.35rem}
+  .cta .s{font-size:.9rem;opacity:.93;line-height:1.65}
+  .quoteline{background:var(--card2);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:.7rem .95rem;margin:.5rem 0 1rem;font-size:1rem;color:var(--ink);font-weight:700}
+
   .ok{display:flex;gap:.5rem;align-items:flex-start;background:var(--good-bg);border-radius:10px;padding:.7rem .9rem;font-size:.92rem;margin:.2rem 0 1.2rem}
   .ok .c{color:var(--good);font-weight:800;white-space:nowrap}
   .note{display:flex;gap:.5rem;align-items:flex-start;background:var(--card2);border-radius:10px;padding:.7rem .9rem;font-size:.9rem;color:var(--soft);margin:.2rem 0 1.2rem}
@@ -281,6 +291,52 @@
         <div class="note"><span class="c">💡 換成你的</span><span>把「飲料店」換成<b>你部門真的在收的東西</b>（報修單、領料單、訂便當），句型完全一樣。</span></div>
       </section>
 
+      <section class="panel" id="case0">
+        <div class="stepno">真實案例</div>
+        <h2>業務部 Ellie</h2>
+        <p class="sub">不會寫程式的業務，26 天做出公司在用的系統</p>
+        <div class="why">前面五個例子講的是「一句話可以做出東西」。這一個是——<b>我們公司真的有人這樣做完了，而且她不會寫程式。</b>從她丟一句話過來，到系統上線給大家用，總共 26 天。</div>
+
+        <div class="stephd"><span class="n">①</span>需求就是這樣進來的<span class="sfx">3/4（三）17:08</span></div>
+        <div class="imgbox"><div class="top"><span class="t">她的 LINE</span></div><img src="assets/case-01-line-0304.jpg" alt="3/4 LINE 對話：我想要做這個，可以如何做"></div>
+        <div class="quoteline">「我想要做這個，可以如何做？」</div>
+        <p class="hand">她附的是<b>一支國外會展掃名片系統的介紹影片</b>。沒有規格書、沒有需求單、沒有功能清單。</p>
+        <div class="note"><span class="c">💡 看這裡</span><span>她不會寫程式，她只是<b>看到一個東西，指給人看</b>。例子 3 教你用一張圖當規格書——這裡是用一支影片。</span></div>
+
+        <div class="stephd"><span class="n">②</span>你只要開口，剩下的它補</div>
+        <p class="hand">影片 AI 讀不了，但 search 一下就發現：<b>這類系統有公開的產品頁</b>。</p>
+        <div class="imgbox"><div class="top"><span class="t">搜尋一下 · 這種東西別人早就做過了</span></div><img src="assets/case-02-search.jpg" alt="搜尋結果：這類會展名單擷取系統有公開產品頁，手機 App 評價 4.3 星、182 則"></div>
+        <p class="hand">把產品頁的網址丟給 AI，<b>它自己去讀、自己整理出這種系統該有哪些功能</b>——別人花好幾年想清楚、還被市場打過分數（4.3 星、182 則評價）的東西，你直接站上去。</p>
+        <p class="hand">然後補上最重要的那半句：</p>
+        <div class="cmd"><div class="top"><span class="t">她說出口的第一句話（大意）</span><button class="copy">複製整段</button></div><pre>我要做一個這樣功能的產品，要用在公司去展覽會場的時候可以用到</pre></div>
+        <div class="note"><span class="c">💡 看這裡</span><span>「<b>要用在公司去展覽會場</b>」——這半句是 AI 補不了、只有你自己知道的部分。少了它，做出來的是仿製品；有了它，才是你們的系統。<b>說出第一句話，AI 幫你完整。</b></span></div>
+
+        <div class="stephd"><span class="n">③</span>第一次回你的不是文件，是一個能看的東西</div>
+        <p class="hand">AI 讀完之後，<b>直接做出一個介面</b>——左邊掃描、右邊自動帶出名單資料、下面是備註欄。第一版還是英文的，因為它讀的是英文產品頁。</p>
+        <div class="note"><span class="c">💡 看這裡</span><span>它沒有回你一份需求文件，它<b>直接做了一個看得到的東西</b>。從這一秒開始，討論就從「我想像中的」變成「<b>我看著這個講——這裡要改、這欄我不需要</b>」。</span></div>
+
+        <div class="stephd"><span class="n">④</span>然後就是一個流程一個流程，調成想要的<span class="sfx">中間這 26 天</span></div>
+        <p class="hand">這一段，是整個案例<b>最有價值的部分</b>——也是我們<b>唯一教不了的部分</b>。</p>
+        <p class="hand">因為每個人要調的東西都不一樣：<b>你的流程、你的痛點、你部門的規矩，只有你自己知道</b>。AI 幫你做出第一版，但要把它變成「你真的能用的那一版」，只能你自己一輪一輪試。</p>
+        <div class="note"><span class="c">💡 看這裡</span><span>她<b>不是一次就成功</b>。她試到自己的額度用完（下一張截圖裡那句 <code>I reached my credits limit</code>），隔天再來。<b>我們給不了教學，只能給經驗分享。</b></span></div>
+
+        <div class="stephd"><span class="n">⑤</span>26 天後<span class="sfx">3/30（一）14:11</span></div>
+        <div class="imgbox"><div class="top"><span class="t">她把做好的東西傳過來</span></div><img src="assets/case-05-line-0330.jpg" alt="3/30 LINE：她傳來做好的掃描系統連結，以及額度用完明天再試"></div>
+        <p class="hand">連結傳過來，我只回得出兩個字：<b>fuyoh</b>。</p>
+        <div class="bigstat"><span class="n">3/4 一句話　→　3/30 能用的系統</span><span class="t">26 天 · 全程她自己做</span></div>
+
+        <div class="stephd"><span class="n">⑥</span>然後就是現在你看到的這個</div>
+        <div class="links"><a class="lk" href="https://easyshowoem.medtecs.com" target="_blank" rel="noopener"><span>🔗 會展掃描系統（正在用的那一個）</span><span class="u">easyshowoem.medtecs.com ↗</span></a></div>
+        <div class="note"><span class="c">📁 對照</span><span>這就是<b>例子 4「會展掃描系統」</b>的真實來源——你在例子 4 用一句話做出來的那個手機畫面，正是從這裡長出來的。</span></div>
+
+        <div class="stephd"><span class="n">⑦</span>你以為到這裡就結束了？</div>
+        <p class="hand">我也以為。結果她又提了新的：</p>
+        <div class="imgbox"><div class="top"><span class="t">她的 LINE</span></div><img src="assets/case-07-line-newask.jpg" alt="LINE：我想學怎麼真的把它做成手機 app"></div>
+        <div class="quoteline">「I want to learn how to really make it as an apps in the phone too」</div>
+        <p class="hand">她想把它<b>上架到 iPhone 的 App Store 和 Google Play</b>。</p>
+        <div class="cta"><div class="big">你們想學嗎？</div><div class="s">不知道有多少人也想學這個。<br><b>想學的，現場跟 4A 小組說一聲，或直接回信給我們。</b><br>人夠多，我們就開。</div></div>
+      </section>
+
       <section class="panel" id="donepanel">
         <div class="done-panel">
           <div class="stepno">DONE</div>
@@ -300,7 +356,8 @@
   var panels=[].slice.call(document.querySelectorAll('#panels .case'));
   var donePanel=document.getElementById('donepanel');
   var prepPanel=document.getElementById('prep0');
-  var N=panels.length, cur=0, done=[], showingPrep=false;
+  var realPanel=document.getElementById('case0');
+  var N=panels.length, cur=0, done=[], showingPrep=false, showingReal=false;
   for(var i=0;i<N;i++){done.push(false);}
   var $=function(id){return document.getElementById(id);};
 
@@ -309,6 +366,10 @@
                  '<span class="dot">0</span>'+
                  '<div class="rtx"><span class="rt">0\u3000\u5efa\u7acb\u5c08\u6848\u8cc7\u6599\u593e</span>'+
                  '<span class="rd">\u6240\u6709\u4f8b\u5b50\u5171\u7528\uff0c\u53ea\u505a\u4e00\u6b21</span></div></div>';
+    var realHtml='<div class="rstep real '+(showingReal?'cur':'')+'" data-real="1">'+
+                 '<span class="dot">\u2605</span>'+
+                 '<div class="rtx"><span class="rt">\u771f\u5be6\u6848\u4f8b\u3000\u696d\u52d9\u90e8 Ellie</span>'+
+                 '<span class="rd">26 \u5929\uff0c\u5f9e\u4e00\u53e5\u8a71\u5230\u516c\u53f8\u5728\u7528\u7684\u7cfb\u7d71</span></div></div>';
     $('rail').innerHTML=prepHtml+panels.map(function(p,k){
       var soon=p.classList.contains('soon');
       var isCur=(!showingPrep&&k===cur);
@@ -316,11 +377,13 @@
              '<span class="dot">'+(done[k]?'\u2713':(k+1))+'</span>'+
              '<div class="rtx"><span class="rt">\u4f8b\u5b50 '+(k+1)+'\u3000'+p.getAttribute('data-t')+'</span>'+
              '<span class="rd">'+p.getAttribute('data-d')+'</span></div></div>';
-    }).join('');
+    }).join('')+realHtml;
     var prepEl=document.querySelector('.rstep.prep');
-    if(prepEl){prepEl.onclick=function(){showingPrep=true;render();window.scrollTo(0,0);};}
+    if(prepEl){prepEl.onclick=function(){showingPrep=true;showingReal=false;render();window.scrollTo(0,0);};}
+    var realEl=document.querySelector('.rstep.real');
+    if(realEl){realEl.onclick=function(){showingReal=true;showingPrep=false;render();window.scrollTo(0,0);};}
     [].forEach.call(document.querySelectorAll('.rstep[data-k]'),function(e){
-      e.onclick=function(){showingPrep=false;cur=+e.getAttribute('data-k');render();window.scrollTo(0,0);};
+      e.onclick=function(){showingPrep=false;showingReal=false;cur=+e.getAttribute('data-k');render();window.scrollTo(0,0);};
     });
   }
 
@@ -331,6 +394,13 @@
     panels.forEach(function(p){p.classList.remove('on');});
     donePanel.classList.remove('on');
     prepPanel.classList.remove('on');
+    realPanel.classList.remove('on');
+    if(showingReal){
+      $('barlab').textContent='\u771f\u5be6\u6848\u4f8b';
+      realPanel.classList.add('on');
+      renderRail();
+      return;
+    }
     if(showingPrep){
       $('barlab').textContent='\u4e8b\u524d\u6e96\u5099';
       prepPanel.classList.add('on');
@@ -430,7 +500,7 @@
     };
   });
 
-  $('again').onclick=function(){showingPrep=false;cur=N-1;render();window.scrollTo(0,0);};
+  $('again').onclick=function(){showingPrep=false;showingReal=false;cur=N-1;render();window.scrollTo(0,0);};
   $('prepNext').onclick=function(){showingPrep=false;cur=0;render();window.scrollTo(0,0);};
   render();
 </script>
